@@ -1,4 +1,4 @@
-package com.june.part5.bmicalculator
+package com.june.androidApp.bmicalculator
 
 import org.junit.Test
 

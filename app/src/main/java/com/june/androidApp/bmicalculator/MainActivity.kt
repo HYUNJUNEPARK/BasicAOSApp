@@ -1,10 +1,10 @@
-package com.june.part5.bmicalculator
+package com.june.androidApp.bmicalculator
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import com.june.part5.bmicalculator.databinding.ActivityMainBinding
+import com.june.androidApp.bmicalculator.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -22,10 +22,14 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val height = _height.toString().toInt()
+            val weight = _weight.toString().toInt()
+
             val intent = Intent(this, ResultActivity::class.java)
+            intent.putExtra("height", height)
+            intent.putExtra("weight", weight)
+
             startActivity(intent)
         }
-
-
     }
 }

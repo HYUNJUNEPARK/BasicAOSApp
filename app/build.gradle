@@ -8,7 +8,7 @@ android {
     buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.june.part5.bmicalculator"
+        applicationId "com.june.andoridApp.bmicalculator"
         minSdkVersion 21
         targetSdkVersion 31
         versionCode 1
