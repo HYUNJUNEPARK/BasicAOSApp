@@ -12,20 +12,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/height"
+        android:layout_marginTop="30dp"
         android:textColor="@color/mainColor"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <EditText
         android:id="@+id/heightEditText"
-        android:inputType="number"
-        android:backgroundTint="@color/mainColor"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:backgroundTint="@color/mainColor"
+        android:inputType="number" />
 
     <TextView
-        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
@@ -44,17 +44,16 @@
         android:inputType="number" />
 
     <Button
-        android:backgroundTint="@color/mainColor"
         android:id="@+id/resultButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="50dp"
+        android:backgroundTint="@color/mainColor"
         android:text="@string/result" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_marginTop="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/bmi_img"/>
+        android:layout_marginTop="10dp"
+        android:src="@drawable/bmi_img" />
 </LinearLayout>
