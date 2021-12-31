@@ -1,3 +1,5 @@
+# RandomNumberGenerator
+
 ![1_Screenshot_20211231-231107_RandomNumberGenerator](https://user-images.githubusercontent.com/89306567/147827749-dab3791e-7b92-4c26-9e67-265ea4cd1e65.jpg) <br />
 랜덤 번호 6 개를 생성해주는 앱 <br />
 번호 지정 버튼으로 6가지 랜덤 번호 중 최대 5가지 번호를 지정할 수 있으며 번호 생성 버튼으로 랜덤 번호를 생성 
