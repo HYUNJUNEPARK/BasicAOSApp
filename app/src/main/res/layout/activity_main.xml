@@ -55,7 +55,7 @@
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="100dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,7 +70,10 @@
             android:layout_margin="5dp"
             android:text="@string/sample_number"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/circle_blue"/>
 
         <TextView
             android:id="@+id/chosenNumberTwo"
@@ -81,7 +84,10 @@
             android:layout_margin="5dp"
             android:text="@string/sample_number"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/circle_blue"/>
 
         <TextView
             android:id="@+id/chosenNumberThree"
@@ -92,7 +98,10 @@
             android:layout_margin="5dp"
             android:text="@string/sample_number"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/circle_blue"/>
 
         <TextView
             android:id="@+id/chosenNumberFour"
@@ -103,7 +112,10 @@
             android:layout_margin="5dp"
             android:text="@string/sample_number"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/circle_blue"/>
 
         <TextView
             android:id="@+id/chosenNumberFive"
@@ -114,7 +126,10 @@
             android:layout_margin="5dp"
             android:text="@string/sample_number"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/circle_blue"/>
 
         <TextView
             android:id="@+id/chosenNumberSix"
@@ -125,7 +140,10 @@
             android:layout_margin="5dp"
             android:text="@string/sample_number"
             android:textSize="18sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:background="@drawable/circle_blue"/>
 
     </LinearLayout>
 

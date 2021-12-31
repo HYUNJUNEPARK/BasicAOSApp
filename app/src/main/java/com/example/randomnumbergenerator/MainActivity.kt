@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.TextView
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import com.example.randomnumbergenerator.databinding.ActivityMainBinding
 
@@ -38,6 +39,7 @@ class MainActivity : AppCompatActivity() {
             numberList.forEachIndexed { index, number ->
                 val chosenNumberTextView = listOfChosenNumberTextView[index]
                 chosenNumberTextView.isVisible = true
+                setCircleBackground(number, chosenNumberTextView)
                 chosenNumberTextView.text = number.toString()
             }
         }
@@ -68,6 +70,7 @@ class MainActivity : AppCompatActivity() {
             val chosenNumberTextView = listOfChosenNumberTextView[pickedNumberSet.size]
             chosenNumberTextView.isVisible = true
             chosenNumberTextView.text = binding.numberPicker.value.toString()
+            setCircleBackground(binding.numberPicker.value, chosenNumberTextView)
             pickedNumberSet.add(binding.numberPicker.value)
             //[END NumberPicker 값 UI 세팅]
         }
@@ -97,5 +100,15 @@ class MainActivity : AppCompatActivity() {
         val numberList = pickedNumberSet.toList() + _numberList.subList(0, 6 - pickedNumberSet.size)
         return numberList.sorted()
         //[END 방법2. list 를 이용해 램덤 숫자 생성]
+    }
+
+    private fun setCircleBackground(number:Int, textView: TextView){
+        when(number) {
+            in 1..10 -> textView.background = ContextCompat.getDrawable(this, R.drawable.circle_red)
+            in 11..20 -> textView.background = ContextCompat.getDrawable(this, R.drawable.circle_orange)
+            in 21..30 -> textView.background = ContextCompat.getDrawable(this, R.drawable.circle_yellow)
+            in 31..40 -> textView.background = ContextCompat.getDrawable(this, R.drawable.circle_green)
+            else -> textView.background = ContextCompat.getDrawable(this, R.drawable.circle_blue)
+        }
     }
 }
