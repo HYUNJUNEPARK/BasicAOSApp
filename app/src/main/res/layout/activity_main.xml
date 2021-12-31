@@ -16,7 +16,8 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/addButton"
+        android:id="@+id/chooseNumberButton"
+        android:backgroundTint="@color/main_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
@@ -29,17 +30,18 @@
 
     <Button
         android:id="@+id/clearButton"
+        android:backgroundTint="@color/main_color"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:text="@string/button_initialization"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/addButton"
+        app:layout_constraintStart_toEndOf="@+id/chooseNumberButton"
         app:layout_constraintTop_toBottomOf="@+id/numberPicker" />
 
     <Button
-        android:id="@+id/runButton"
+        android:id="@+id/createButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -57,10 +59,12 @@
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addButton">
+        app:layout_constraintTop_toBottomOf="@id/chooseNumberButton">
 
         <TextView
             android:id="@+id/chosenNumberOne"
+            tools:visibility="visible"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -70,6 +74,8 @@
 
         <TextView
             android:id="@+id/chosenNumberTwo"
+            tools:visibility="visible"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -79,6 +85,8 @@
 
         <TextView
             android:id="@+id/chosenNumberThree"
+            tools:visibility="visible"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -88,6 +96,8 @@
 
         <TextView
             android:id="@+id/chosenNumberFour"
+            tools:visibility="visible"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -97,6 +107,19 @@
 
         <TextView
             android:id="@+id/chosenNumberFive"
+            tools:visibility="visible"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:text="@string/sample_number"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/chosenNumberSix"
+            tools:visibility="visible"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
