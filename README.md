@@ -1,12 +1,13 @@
 
 
 //새로 배운 기능
-1. contraintLayout 속성\n
-<Button\n
-...\n
+1. contraintLayout 속성
+
+<Button
+...
    app:layout_constraintHorizontal_chainStyle="packed"\n
-...\n
-/>\n
+...
+/>
 
 2. shape drawable\n
 -drawable 우클릭 new -> Drawable Resource File\n
