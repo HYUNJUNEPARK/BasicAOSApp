@@ -45,9 +45,11 @@ class MainActivity : AppCompatActivity() {
 
             //[START 비밀번호 확인 -> 페이지 이동 or AlertDialog]
             val passwordFromUser = "${binding.numberPicker1.value}${binding.numberPicker2.value}${binding.numberPicker3.value}"
-            if (passwordPreferences.getString("password", "000").equals(passwordFromUser)) {//password 이름을 갖는 SharedPreferences 에 저장된 String 값을 꺼내와 passwordFromUser 값과 비교 (SharedPreferences 에 저장된 값이 없다면 디폴트 값은 000)
+
+            /* SharedPreferences 에 저장된 값 꺼내오기
+            SharedPreferences 객체.get데이터타입("SharedPreferences 이름", "default value") */
+            if (passwordPreferences.getString("password", "000").equals(passwordFromUser)) {
                 //startActivity()
-                Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
             } else {
                 showAlertDialog()
             }
@@ -57,8 +59,7 @@ class MainActivity : AppCompatActivity() {
         binding.changePasswordButton.setOnClickListener {
             val passwordFromUser = "${binding.numberPicker1.value}${binding.numberPicker2.value}${binding.numberPicker3.value}"
 
-            //changePasswordMode 활성화(true) -> changePasswordMode 비활성화(false)
-            //비밀번호 변경 가능
+            //changePasswordMode 활성화(true) -> 비밀번호 변경 가능 -> changePasswordMode 비활성화(false)
             if (changePasswordMode) {
                 /* SharedPreferences 값 수정
                 - edit 함수에 람다로 SharedPreferences 값 수정 가능
