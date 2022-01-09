@@ -12,7 +12,8 @@
         <activity
             android:name=".DiaryActivity"
             android:exported="false"
-            android:theme="@style/Theme.SecretDiary.NoActionBar" />
+            android:parentActivityName=".MainActivity"
+            android:theme="@style/Theme.SecretDiary" />
         <activity
             android:name=".MainActivity"
             android:exported="true"

@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">Secret Diary</string>
+    <string name="app_name">Diary</string>
     <string name="title">The Secret Diary</string>
+    <string name="initialize">Initialize</string>
 </resources>

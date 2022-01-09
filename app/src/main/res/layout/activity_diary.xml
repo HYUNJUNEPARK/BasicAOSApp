@@ -8,10 +8,23 @@
     android:padding="25dp"
     tools:context=".DiaryActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:fontFamily="@font/child_font"
+        android:text="Secret Memo"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/diaryEditText"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
     <EditText
-        android:id="@+id/diraryEditText"
+        android:id="@+id/diaryEditText"
         android:layout_width="0dp"
-        android:layout_height="0dp"
+        android:layout_height="450dp"
         android:background="@color/white"
         android:gravity="start|top"
         android:padding="10dp"
@@ -19,5 +32,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/initializeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/initialize"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/diaryEditText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

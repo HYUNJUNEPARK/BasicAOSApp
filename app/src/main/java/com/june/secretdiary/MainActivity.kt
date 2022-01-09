@@ -6,6 +6,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.edit
 import com.june.secretdiary.databinding.ActivityMainBinding
@@ -17,6 +18,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        //액션바 세팅
+        setActionBar()
 
         //[START Setting numberPicker]
         binding.numberPicker1.apply {
@@ -55,12 +59,11 @@ class MainActivity : AppCompatActivity() {
             }
             //[END 비밀번호 확인 -> 페이지 이동 or AlertDialog]
         }
-
         binding.changePasswordButton.setOnClickListener {
             val passwordFromUser = "${binding.numberPicker1.value}${binding.numberPicker2.value}${binding.numberPicker3.value}"
             //changePasswordMode 활성화(true) -> 비밀번호 변경 가능 -> changePasswordMode 비활성화(false)
             if (changePasswordMode) {
-                /* SharedPreferences 값 수정
+                /*SharedPreferences 값 수정
                 - edit 함수에 람다로 SharedPreferences 값 수정 가능
                 - commit() : 동기적 저장 (파일이 다 저장될때까지 UI를 멈추고 기다림) - 가벼운 작업에서 사용
                 - apply() : 비동기적 저장 */
@@ -85,7 +88,7 @@ class MainActivity : AppCompatActivity() {
     }
     private fun showAlertDialog() {
         AlertDialog.Builder(this)
-            .setTitle("Page Open Error")
+            .setTitle("Error")
             .setMessage("비밀번호가 잘못되었습니다.")
             .setPositiveButton("확인") { _, _ ->
                 initializeNumberPicker()
@@ -97,5 +100,9 @@ class MainActivity : AppCompatActivity() {
         binding.numberPicker1.value = 0
         binding.numberPicker2.value = 0
         binding.numberPicker3.value = 0
+    }
+    private fun setActionBar(){
+        val actionBar = supportActionBar
+        actionBar?.setDisplayHomeAsUpEnabled(true)
     }
 }
