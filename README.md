@@ -8,9 +8,9 @@
 res 우클릭  -> New -> Android Rescouce Directory -> font 디렉토리 생성</br>
 res는 대문자를 사용하지 않으므로 소문자로만 파일이름 설정</br>
 xml 파일 android:fontFamily="@font/폰트 이름"</br>
-
+</br>
 2. AlertDialog
-
+</br>
 3. SharedPreference
 앱 설정 값 등 내부 저장소에 간단한 데이터를 저장할 수 있음
 데이터를 Key:Value 로 저장하며 종료되어도 데이터가 남아있음
