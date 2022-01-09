@@ -11,12 +11,12 @@ xml 파일 android:fontFamily="@font/폰트 이름"</br>
 </br>
 2. AlertDialog
 </br>
-3. SharedPreference
-앱 설정 값 등 내부 저장소에 간단한 데이터를 저장할 수 있음
-데이터를 Key:Value 로 저장하며 종료되어도 데이터가 남아있음
-SharedPreferences 생성
-- getSharedPreferences("name", MODE_)
-데이터 넣기
-- sharedPreferences.putString("name", data)
-데이터 꺼내기
-- sharedPreferences.getString("name", "defaultData")
+3. SharedPreference</br>
+앱 설정 값 등 내부 저장소에 간단한 데이터를 저장할 수 있음</br>
+데이터를 Key:Value 로 저장하며 종료되어도 데이터가 남아있음</br>
+SharedPreferences 생성</br>
+- getSharedPreferences("name", MODE_)</br>
+데이터 넣기</br>
+- sharedPreferences.putString("name", data)</br>
+데이터 꺼내기</br>
+- sharedPreferences.getString("name", "defaultData")</br>
