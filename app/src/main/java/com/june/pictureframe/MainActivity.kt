@@ -1,6 +1,5 @@
 package com.june.pictureframe
 
-
 import android.content.Intent
 import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
@@ -33,6 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //TODO: 권한처리 -> baseActivity 상속으로 변경
     private fun initStartPhotoFrameModeButton() {
         binding.addPhotoButton.setOnClickListener {
             when {
@@ -55,11 +55,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         when(requestCode){
@@ -76,7 +72,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
-
+    //TODO: startActivityForResult deprecated
+    //TODO: 함수 이름 바꾸기 takePhotos
     private fun navigatePhotos() {
         //SAF 기능 이용
         val intent = Intent(Intent.ACTION_GET_CONTENT)
