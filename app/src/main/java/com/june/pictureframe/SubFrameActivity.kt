@@ -3,7 +3,6 @@ package com.june.pictureframe
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import com.june.pictureframe.databinding.ActivitySubFrameBinding
 import kotlin.concurrent.timer
 
@@ -46,7 +45,6 @@ class SubFrameActivity : AppCompatActivity() {
                     .alpha(1.0f)
                     .setDuration(1000)
                     .start()
-
                 currentPosition = next
             }
         }

@@ -16,12 +16,12 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private val imageViewList: List<ImageView> by lazy {
         mutableListOf<ImageView>().apply {
-            add(binding.imageView1)
-            add(binding.imageView2)
-            add(binding.imageView3)
-            add(binding.imageView4)
-            add(binding.imageView5)
-            add(binding.imageView6)
+            add(binding.imageView1Right)
+            add(binding.imageView1Middle)
+            add(binding.imageView1Left)
+            add(binding.imageView2Right)
+            add(binding.imageView2Middle)
+            add(binding.imageView2Left)
         }
     }
 
@@ -116,12 +116,10 @@ class MainActivity : AppCompatActivity() {
             2000 -> {
                 val selectedImageUri: Uri? = data?.data
                 if (selectedImageUri != null) {
-
                     if (imageUriList.size >= imageViewList.size) {
                         Toast.makeText(this, "더 이상 사진을 추가할 수 없습니다.", Toast.LENGTH_SHORT).show()
                         return
                     }
-
                     imageUriList.add(selectedImageUri)
                     imageViewList[imageUriList.size - 1].setImageURI(selectedImageUri)
                 } else {
@@ -137,7 +135,7 @@ class MainActivity : AppCompatActivity() {
         AlertDialog.Builder(this)
             .setTitle("권한이 필요합니다")
             .setMessage("전자액자 앱에서 사진을 불러오기 위해 권한이 필요합니다")
-            //TODO : dialog 와 which 가 담고 있는 데이터 확인
+            //TODO : dialog 와 which 가 담고 있는 데이터 확인 and _ _ 로 수정
             .setPositiveButton("동의하기") { dialog, which ->
                 requestPermissions(arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 1000)
             }

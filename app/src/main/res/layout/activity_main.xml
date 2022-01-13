@@ -17,24 +17,27 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/imageView1_right"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/gray1"
             android:scaleType="centerCrop" />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView1_middle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/gray2"
             android:scaleType="centerCrop" />
 
         <ImageView
-            android:id="@+id/imageView3"
+            android:id="@+id/imageView1_left"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/gray1"
             android:scaleType="centerCrop" />
     </LinearLayout>
 
@@ -50,24 +53,27 @@
         app:layout_constraintTop_toBottomOf="@+id/firstLinearLayout">
 
         <ImageView
-            android:id="@+id/imageView4"
+            android:id="@+id/imageView2_right"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/gray2"
             android:scaleType="centerCrop" />
 
         <ImageView
-            android:id="@+id/imageView5"
+            android:id="@+id/imageView2_middle"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/gray1"
             android:scaleType="centerCrop" />
 
         <ImageView
-            android:id="@+id/imageView6"
+            android:id="@+id/imageView2_left"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@color/gray2"
             android:scaleType="centerCrop" />
     </LinearLayout>
 
@@ -77,7 +83,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="사진첩 열기"
+        android:text="@string/start_slideShow"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -87,7 +94,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:text="사진 추가"
+        android:text="@string/add_photo"
         app:layout_constraintBottom_toTopOf="@+id/startPhotoFrameModeButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
