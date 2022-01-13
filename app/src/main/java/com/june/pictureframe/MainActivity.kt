@@ -1,7 +1,9 @@
 package com.june.pictureframe
 
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ImageView
@@ -22,6 +24,8 @@ class MainActivity : AppCompatActivity() {
             add(binding.imageView6)
         }
     }
+
+    private val imageUriList: MutableList<Uri> = mutableListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -79,6 +83,34 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_GET_CONTENT)
         intent.type = "image/*"
         startActivityForResult(intent, 2000)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode != Activity.RESULT_OK){
+            return
+        }
+        when(requestCode) {
+            2000 -> {
+                val selectedImageUri: Uri? = data?.data
+                if (selectedImageUri != null) {
+
+                    if (imageUriList.size >= imageViewList.size ) {
+                        Toast.makeText(this, "더 이상 사진을 추가할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                        return
+                    }
+
+                    imageUriList.add(selectedImageUri)
+                    imageViewList[imageUriList.size - 1].setImageURI(selectedImageUri)
+                }else{
+                    Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            }
+            else -> {
+                Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
+            }
+        }
     }
 
     private fun showPermissionContextPopup() {
