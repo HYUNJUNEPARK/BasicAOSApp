@@ -4,12 +4,14 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.june.pictureframe.databinding.ActivitySubFrameBinding
+import java.util.*
 import kotlin.concurrent.timer
 
 class SubFrameActivity : AppCompatActivity() {
     private val binding by lazy { ActivitySubFrameBinding.inflate(layoutInflater) }
     private val photoList = mutableListOf<Uri>()
     private var currentPosition = 0
+    private var timer: Timer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -17,8 +19,21 @@ class SubFrameActivity : AppCompatActivity() {
 
         //TODO 사진 선택이 안되어있으면 앱 크래쉬 발생
         getPhotoUriFrameIntent()
-        startTimer()
+    }
 
+    override fun onStop() {
+        super.onStop()
+        timer?.cancel()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        startTimer()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        timer?.cancel()
     }
 
     private fun getPhotoUriFrameIntent() {
@@ -31,7 +46,7 @@ class SubFrameActivity : AppCompatActivity() {
     }
 
     private fun startTimer(){
-        timer(period = 5000) {
+        timer = timer(period = 5000) {
             runOnUiThread {
                 //TODO : 변수 이름 바꾸기
                 val current = currentPosition

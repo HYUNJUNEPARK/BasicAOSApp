@@ -13,7 +13,8 @@
         android:theme="@style/Theme.PictureFrame">
         <activity
             android:name=".SubFrameActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="landscape"/>
         <activity
             android:name=".MainActivity"
             android:exported="true">
