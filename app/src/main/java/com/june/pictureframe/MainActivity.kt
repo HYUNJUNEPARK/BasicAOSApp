@@ -25,6 +25,9 @@ class MainActivity : Permission() {
             add(binding.imageView2Right)
             add(binding.imageView2Middle)
             add(binding.imageView2Left)
+            add(binding.imageView3Right)
+            add(binding.imageView3Middle)
+            add(binding.imageView3Left)
         }
     }
 
@@ -35,6 +38,7 @@ class MainActivity : Permission() {
         //추상화 : onCreate 내부에 코드를 모두 적으면 지저분해 보이기 때문에 깔끔하게 보이게 하는 과정
         initAddPhotoButton()
         initSlideShowButton()
+        initInitializeButton()
         initResultListener()
     }
 
@@ -56,6 +60,13 @@ class MainActivity : Permission() {
             } else {
                 Toast.makeText(this, "사진을 선택 후 시작할 수 있습니다.", Toast.LENGTH_SHORT).show()
             }
+        }
+    }
+
+    private fun initInitializeButton(){
+        //TODO 초기화버튼 부터 구현
+        binding.initializeButton.setOnClickListener {
+            Toast.makeText(this, "초기화 버튼 눌림", Toast.LENGTH_SHORT).show()
         }
     }
 
