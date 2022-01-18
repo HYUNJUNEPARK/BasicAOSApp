@@ -39,8 +39,8 @@ class SubFrameActivity : AppCompatActivity() {
     private fun getPhotoUriFrameIntent() {
         val size = intent.getIntExtra("photoListSize", 0)
         for (i in 0..size) {
-            intent.getStringExtra("photo$i")?.let { uri_string ->
-                photoList.add(Uri.parse(uri_string))
+            intent.getStringExtra("photo$i")?.let { uri_str ->
+                photoList.add(Uri.parse(uri_str))
             }
         }
     }

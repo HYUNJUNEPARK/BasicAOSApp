@@ -79,7 +79,7 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/startPhotoFrameModeButton"
+        android:id="@+id/slideShowButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
@@ -95,7 +95,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="@string/add_photo"
-        app:layout_constraintBottom_toTopOf="@+id/startPhotoFrameModeButton"
+        app:layout_constraintBottom_toTopOf="@+id/slideShowButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
