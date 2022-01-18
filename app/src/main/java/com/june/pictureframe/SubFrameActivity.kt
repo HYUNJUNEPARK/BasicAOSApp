@@ -17,7 +17,6 @@ class SubFrameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        //TODO 사진 선택이 안되어있으면 앱 크래쉬 발생
         getPhotoUriFrameIntent()
     }
 

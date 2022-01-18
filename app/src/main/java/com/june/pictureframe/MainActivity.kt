@@ -7,14 +7,16 @@ import android.net.Uri
 import android.os.Bundle
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import com.june.pictureframe.databinding.ActivityMainBinding
 
 class MainActivity : Permission() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val photoUriList: MutableList<Uri> = mutableListOf()
+    private val selectedPhotoUriList: MutableList<Uri> = mutableListOf()
     private val permissionArray: Array<String> = arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-
+    private lateinit var resultListener: ActivityResultLauncher<Intent>
     private val imageViewList: List<ImageView> by lazy {
         mutableListOf<ImageView>().apply {
             add(binding.imageView1Right)
@@ -33,6 +35,7 @@ class MainActivity : Permission() {
         //추상화 : onCreate 내부에 코드를 모두 적으면 지저분해 보이기 때문에 깔끔하게 보이게 하는 과정
         initAddPhotoButton()
         initSlideShowButton()
+        initResultListener()
     }
 
     private fun initAddPhotoButton() {
@@ -43,24 +46,48 @@ class MainActivity : Permission() {
 
     private fun initSlideShowButton() {
         binding.slideShowButton.setOnClickListener {
-            val intent = Intent(this, SubFrameActivity::class.java)
-            photoUriList.forEachIndexed { index, uri ->
-                intent.putExtra("photo$index", uri.toString())
+            if (selectedPhotoUriList.isNotEmpty()) {
+                val intent_ = Intent(this, SubFrameActivity::class.java)
+                selectedPhotoUriList.forEachIndexed { index, uri ->
+                    intent_.putExtra("photo$index", uri.toString())
+                }
+                intent_.putExtra("photoListSize", selectedPhotoUriList.size)
+                startActivity(intent_)
+            } else {
+                Toast.makeText(this, "사진을 선택 후 시작할 수 있습니다.", Toast.LENGTH_SHORT).show()
             }
-            intent.putExtra("photoListSize", photoUriList.size)
-            startActivity(intent)
+        }
+    }
+
+    private fun initResultListener(){
+        resultListener = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ selectResult ->
+            if (selectResult.resultCode == Activity.RESULT_OK) {
+                val selectedPhotoUri: Uri? = selectResult.data?.data
+                if (selectedPhotoUri != null) {
+                    if (selectedPhotoUriList.size >= imageViewList.size){
+                        Toast.makeText(this,  "더 이상 사진을 추가할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                        return@registerForActivityResult
+                    }
+                    selectedPhotoUriList.add(selectedPhotoUri)
+                    imageViewList[selectedPhotoUriList.size-1].setImageURI(selectedPhotoUri)
+                } else {
+                    Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
+                }
+            } else {
+                Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 
     override fun permissionGranted(requestCode: Int) {
-        takePhotos()
+        takePhotosSAF()
     }
 
     override fun permissionDenied(requestCode: Int) {
-        showPopup()
+        showDenyPopup()
     }
 
-    private fun showPopup() {
+    private fun showDenyPopup() {
         AlertDialog.Builder(this)
             .setTitle("권한이 필요합니다")
             .setMessage("사진을 불러오기 위해 권한이 필요합니다")
@@ -74,38 +101,9 @@ class MainActivity : Permission() {
             .show()
     }
 
-    //TODO: startActivityForResult deprecated
-    private fun takePhotos() {
-        //SAF 기능 이용
-        val intent = Intent(Intent.ACTION_GET_CONTENT)
-        intent.type = "image/*"
-        startActivityForResult(intent, 2000)
-    }
-
-    //TODO: startActivityForResult deprecated
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if (resultCode != Activity.RESULT_OK) {
-            return
-        }
-        when (requestCode) {
-            2000 -> {
-                val selectedImageUri: Uri? = data?.data
-                if (selectedImageUri != null) {
-                    if (photoUriList.size >= imageViewList.size) {
-                        Toast.makeText(this, "더 이상 사진을 추가할 수 없습니다.", Toast.LENGTH_SHORT).show()
-                        return
-                    }
-                    photoUriList.add(selectedImageUri)
-                    imageViewList[photoUriList.size - 1].setImageURI(selectedImageUri)
-                } else {
-                    Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
-                }
-            }
-            else -> {
-                Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
-            }
-        }
+    private fun takePhotosSAF() {//SAF(Storage Access Framework)
+        val intent_ = Intent(Intent.ACTION_GET_CONTENT)
+        intent_.type = "image/*"
+        resultListener.launch(intent_)
     }
 }
