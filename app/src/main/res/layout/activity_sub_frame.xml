@@ -8,10 +8,10 @@
     tools:context=".SubFrameActivity">
 
     <ImageView
-        android:id="@+id/backView"
+        android:id="@+id/backImageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/purple_200"
+        android:background="@color/white"
         android:scaleType="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -19,10 +19,10 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/frontView"
+        android:id="@+id/frontImageView"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@color/black"
+        android:background="@color/white"
         android:scaleType="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

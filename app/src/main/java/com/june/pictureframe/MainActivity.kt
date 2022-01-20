@@ -63,14 +63,17 @@ class MainActivity : Permission() {
         }
     }
 
-    private fun initInitializeButton(){
-        //TODO 초기화버튼 부터 구현
+    private fun initInitializeButton() {
         binding.initializeButton.setOnClickListener {
-            Toast.makeText(this, "초기화 버튼 눌림", Toast.LENGTH_SHORT).show()
+            val occupiedImageViewIdx = selectedPhotoUriList.size-1
+            for(i in 0..occupiedImageViewIdx) {
+                imageViewList[i].setImageURI(null)
+            }
+            selectedPhotoUriList.clear()
         }
     }
 
-    private fun initResultListener(){
+    private fun initResultListener() {
         resultListener = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){ selectResult ->
             if (selectResult.resultCode == Activity.RESULT_OK) {
                 val selectedPhotoUri: Uri? = selectResult.data?.data
@@ -80,8 +83,8 @@ class MainActivity : Permission() {
                         return@registerForActivityResult
                     }
                     selectedPhotoUriList.add(selectedPhotoUri)
-                    val imageViewIndex: Int = selectedPhotoUriList.size-1
-                    imageViewList[imageViewIndex].setImageURI(selectedPhotoUri)
+                    val imageViewIdx: Int = selectedPhotoUriList.size-1
+                    imageViewList[imageViewIdx].setImageURI(selectedPhotoUri)
                 } else {
                     Toast.makeText(this, getString(R.string.not_find_photo), Toast.LENGTH_SHORT).show()
                 }
