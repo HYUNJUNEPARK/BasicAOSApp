@@ -58,7 +58,7 @@ class MainActivity : Permission() {
                 intent_.putExtra("photoListSize", selectedPhotoUriList.size)
                 startActivity(intent_)
             } else {
-                Toast.makeText(this, "사진을 선택 후 시작할 수 있습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.choice_photo), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -76,16 +76,17 @@ class MainActivity : Permission() {
                 val selectedPhotoUri: Uri? = selectResult.data?.data
                 if (selectedPhotoUri != null) {
                     if (selectedPhotoUriList.size >= imageViewList.size){
-                        Toast.makeText(this,  "더 이상 사진을 추가할 수 없습니다.", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this,  getString(R.string.not_add_photo), Toast.LENGTH_SHORT).show()
                         return@registerForActivityResult
                     }
                     selectedPhotoUriList.add(selectedPhotoUri)
-                    imageViewList[selectedPhotoUriList.size-1].setImageURI(selectedPhotoUri)
+                    val imageViewIndex: Int = selectedPhotoUriList.size-1
+                    imageViewList[imageViewIndex].setImageURI(selectedPhotoUri)
                 } else {
-                    Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, getString(R.string.not_find_photo), Toast.LENGTH_SHORT).show()
                 }
             } else {
-                Toast.makeText(this, "사진을 가져오지 못했습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.not_find_photo), Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -100,13 +101,13 @@ class MainActivity : Permission() {
 
     private fun showDenyPopup() {
         AlertDialog.Builder(this)
-            .setTitle("권한이 필요합니다")
-            .setMessage("사진을 불러오기 위해 권한이 필요합니다")
-            .setPositiveButton("동의하기") { _, _ ->
+            .setTitle(getString(R.string.popup_title))
+            .setMessage(getString(R.string.popup_content))
+            .setPositiveButton(getString(R.string.popup_agree)) { _, _ ->
                 requestPermissions(permissionArray, 999)
             }
-            .setNegativeButton("취소하기") { _, _ ->
-                Toast.makeText(this,"권한 승인을 취소하셨습니다.", Toast.LENGTH_SHORT).show()
+            .setNegativeButton(getString(R.string.popup_cancel)) { _, _ ->
+                Toast.makeText(this,getString(R.string.cancel_auth), Toast.LENGTH_SHORT).show()
             }
             .create()
             .show()
