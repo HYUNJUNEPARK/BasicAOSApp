@@ -51,12 +51,12 @@ class MainActivity : Permission() {
     private fun initSlideShowButton() {
         binding.slideShowButton.setOnClickListener {
             if (selectedPhotoUriList.isNotEmpty()) {
-                val intent_ = Intent(this, SubFrameActivity::class.java)
+                val intent = Intent(this, SubFrameActivity::class.java)
                 selectedPhotoUriList.forEachIndexed { index, uri ->
-                    intent_.putExtra("photo$index", uri.toString())
+                    intent.putExtra("photo$index", uri.toString())
                 }
-                intent_.putExtra("photoListSize", selectedPhotoUriList.size)
-                startActivity(intent_)
+                intent.putExtra("photoListSize", selectedPhotoUriList.size)
+                startActivity(intent)
             } else {
                 Toast.makeText(this, getString(R.string.choice_photo), Toast.LENGTH_SHORT).show()
             }
@@ -83,8 +83,8 @@ class MainActivity : Permission() {
                         return@registerForActivityResult
                     }
                     selectedPhotoUriList.add(selectedPhotoUri)
-                    val imageViewIdx: Int = selectedPhotoUriList.size-1
-                    imageViewList[imageViewIdx].setImageURI(selectedPhotoUri)
+                    val emptyImageViewIdx: Int = selectedPhotoUriList.size-1
+                    imageViewList[emptyImageViewIdx].setImageURI(selectedPhotoUri)
                 } else {
                     Toast.makeText(this, getString(R.string.not_find_photo), Toast.LENGTH_SHORT).show()
                 }
@@ -117,8 +117,8 @@ class MainActivity : Permission() {
     }
 
     private fun takePhotosSAF() {//SAF(Storage Access Framework)
-        val intent_ = Intent(Intent.ACTION_GET_CONTENT)
-        intent_.type = "image/*"
-        resultListener.launch(intent_)
+        val intent = Intent(Intent.ACTION_GET_CONTENT)
+        intent.type = "image/*"
+        resultListener.launch(intent)
     }
 }

@@ -36,8 +36,8 @@ class SubFrameActivity : AppCompatActivity() {
     }
 
     private fun getPhotoUriFrameIntent() {
-        val photoListSizeFromMain = intent.getIntExtra("photoListSize", 0)
-        for (i in 0..photoListSizeFromMain) {
+        val photoListSize = intent.getIntExtra("photoListSize", 0)
+        for (i in 0..photoListSize) {
             intent.getStringExtra("photo$i")?.let { uri_str ->
                 photoList.add(Uri.parse(uri_str))
             }
@@ -47,21 +47,21 @@ class SubFrameActivity : AppCompatActivity() {
     private fun startTimer(){
         timer = timer(period = 5000) {
             runOnUiThread {
-                val currentSlide = currentPosition
-                val nextSlide = if (photoList.size <= currentPosition + 1) {
-                    0//슬라이드 인덱스 넘어가서 초기화
+                val currentSlidePosition = currentPosition
+                val nextSlidePosition = if (photoList.size <= currentPosition + 1) {
+                    0//슬라이드 인덱스 넘어가면 초기화
                 } else {
                     currentPosition + 1//다음 슬라이드 인덱스
                 }
                 //frontImageView 투명 -> backImageView 이미지 보임
-                binding.backImageView.setImageURI(photoList[currentSlide])
+                binding.backImageView.setImageURI(photoList[currentSlidePosition])
                 binding.frontImageView.alpha = 0f//투명
-                binding.frontImageView.setImageURI(photoList[nextSlide])
+                binding.frontImageView.setImageURI(photoList[nextSlidePosition])
                 binding.frontImageView.animate()
                     .alpha(1.0f)//불투명
                     .setDuration(1000)
                     .start()
-                currentPosition = nextSlide
+                currentPosition = nextSlidePosition
             }
         }
     }
