@@ -15,32 +15,27 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        bindViews()
-
+        initSeekBar()
     }
-    private fun bindViews() {
+
+    //See: https://developer.android.com/reference/android/widget/SeekBar.OnSeekBarChangeListener
+    private fun initSeekBar() {
         binding.seekBar.setOnSeekBarChangeListener(
             object : SeekBar.OnSeekBarChangeListener {
-                override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                    /*
-                    seekBar : 이벤트가 발생한 seekBar
-                    fromUser : 유저가 발생시킨 이벤트 일 때
-                    progress : 유저 상관 없이 변화 생겼을 때
-                    */
+                override fun onStartTrackingTouch(seekBar: SeekBar?) {//Notification that the user has started a touch gesture
+                    //이미 진행중인 타이머가 있을 때 cancel
+                    currentCountDownTimer?.cancel()
+                    currentCountDownTimer = null
+                }
+                override fun onProgressChanged(seekBar: SeekBar?, progressMinute: Int, fromUser: Boolean) {//Notification that the progress level has changed
                     if (fromUser) {
-                        val initialMills = progress * 60 * 1000L
-                        updateRemainTime(initialMills)
+                        val remainMills = progressMinute * 60 * 1000L
+                        updateUIbyRemainTime(remainMills)
                     }
                 }
-                override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                    currentCountDownTimer?.cancel() //이미 진행중인 타이머가 있을 때 cancel
-                    currentCountDownTimer = null
-
-                }
-
-                override fun onStopTrackingTouch(seekBar: SeekBar?) {//시크바에 손을 떼었을 때
+                override fun onStopTrackingTouch(seekBar: SeekBar?) {//Notification that the user has finished a touch gesture
                     if (seekBar == null) {
-                        return@onStopTrackingTouch
+                        return
                     } else {
                         val seekBarMinutes: Int = seekBar.progress
                         val initialMills: Long = seekBarMinutes * 60 * 1000L
@@ -51,27 +46,28 @@ class MainActivity : AppCompatActivity() {
             }
         )
     }
+
     //See: https://developer.android.com/reference/android/os/CountDownTimer
     private fun createCountDownTimer(initialMills: Long): CountDownTimer {
-        return object : CountDownTimer(initialMills, 1000L) {
-            override fun onTick(millisUntilFinished: Long) {//1초마다 한번씩 호출됨
-                updateRemainTime(millisUntilFinished)
-                updateSeekBar(millisUntilFinished)
+        return object : CountDownTimer(initialMills, 1000L) {//countDownInterval 마다 onTick 호출 -> UI 세팅
+            override fun onTick(millisUntilFinished: Long) {
+                updateUIbyRemainTime(millisUntilFinished)
+                updateSeekBarUI(millisUntilFinished)
             }
             override fun onFinish() {
-                updateRemainTime(0)
-                updateSeekBar(0)
+                updateUIbyRemainTime(0)
+                updateSeekBarUI(0)
             }
         }
     }
 
-    private fun updateRemainTime(remainMills: Long) {
+    private fun updateUIbyRemainTime(remainMills: Long) {
         val remainSeconds = remainMills / 1000
         binding.remainMinutesTextView.text = "%02d".format(remainSeconds / 60)
         binding.remainSecondsTextView.text = "%02d".format(remainSeconds % 60)
     }
 
-    private fun updateSeekBar(remainMills: Long){
+    private fun updateSeekBarUI(remainMills: Long){
         val remainMinutes: Int = (remainMills / 1000 / 60).toInt()
         binding.seekBar.progress =  remainMinutes
     }
