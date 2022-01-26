@@ -7,10 +7,9 @@
 - SAF(Storage Access Framework)
 - Permission
 
-/*
+
 HOW TO USE Permission
 1. 사용하려는 Activity 에 Permission 상속
 2. Permission 을 상속 받은 Activity 에 override fun permissionGranted / override fun permissionDenied
 3. requestPermissions(permissions, requestCode) 을 호출해 사용
-*/
 
