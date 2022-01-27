@@ -3,7 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
-        <entry key="..\:/Android/AndroidStudioProjects/PomodoroTimer/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Android/AndroidStudioProjects/PomodoroTimer/app/src/main/res/drawable/drawable_tick_mark.xml" value="0.2064814814814815" />
+        <entry key="..\:/Android/AndroidStudioProjects/PomodoroTimer/app/src/main/res/drawable/ic_thumb.xml" value="0.2064814814814815" />
+        <entry key="..\:/Android/AndroidStudioProjects/PomodoroTimer/app/src/main/res/layout/activity_main.xml" value="0.25" />
       </map>
     </option>
   </component>

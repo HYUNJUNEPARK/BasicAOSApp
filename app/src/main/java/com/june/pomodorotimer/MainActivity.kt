@@ -10,6 +10,7 @@ import com.june.pomodorotimer.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var currentCountDownTimer: CountDownTimer? = null
+    //See: https://developer.android.com/reference/android/media/SoundPool
     private val soundPool = SoundPool.Builder().build()
     private var tickingSoundId: Int? = null
     private var bellSoundId: Int? = null
@@ -43,8 +44,7 @@ class MainActivity : AppCompatActivity() {
             object : SeekBar.OnSeekBarChangeListener {
                 override fun onStartTrackingTouch(seekBar: SeekBar?) {//Notification that the user has started a touch gesture
                     //이미 진행중인 타이머가 있을 때 cancel -> null
-                    currentCountDownTimer?.cancel()
-                    currentCountDownTimer = null
+                    stopCountDown()
                 }
                 override fun onProgressChanged(seekBar: SeekBar?, progressMinute: Int, fromUser: Boolean) {//Notification that the progress level has changed
                     if (fromUser) {
@@ -53,8 +53,10 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 override fun onStopTrackingTouch(seekBar: SeekBar?) {//Notification that the user has finished a touch gesture
-                    if (seekBar == null) {
-                        return
+                    if (seekBar == null) return
+
+                    if (seekBar.progress == 0) {//0에서 바로 떼면 0인 상태에서 타이머가 실행되는 것을 방지
+                        stopCountDown()
                     } else {
                         val seekBarMinutes: Int = seekBar!!.progress
                         val initialMills: Long = seekBarMinutes * 60 * 1000L
@@ -72,6 +74,12 @@ class MainActivity : AppCompatActivity() {
         tickingSoundId?.let {   tickingSoundId ->
             soundPool.play(tickingSoundId, 1F, 1F, 0, -1, 1F)
         }
+    }
+
+    private fun stopCountDown() {
+        currentCountDownTimer?.cancel()
+        currentCountDownTimer = null
+        soundPool.autoPause()
     }
 
     //See: https://developer.android.com/reference/android/os/CountDownTimer
@@ -99,7 +107,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateUIbyRemainTime(remainMills: Long) {
         val remainSeconds = remainMills / 1000
-        binding.remainMinutesTextView.text = "%02d".format(remainSeconds / 60)
+        binding.remainMinutesTextView.text = "%02d'".format(remainSeconds / 60)
         binding.remainSecondsTextView.text = "%02d".format(remainSeconds % 60)
     }
 
