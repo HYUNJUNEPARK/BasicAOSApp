@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">PomodoroTimer</string>
+    <string name="time">00</string>
 </resources>

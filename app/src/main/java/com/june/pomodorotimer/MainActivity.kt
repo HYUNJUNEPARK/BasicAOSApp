@@ -10,8 +10,7 @@ import com.june.pomodorotimer.databinding.ActivityMainBinding
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var currentCountDownTimer: CountDownTimer? = null
-    //See: https://developer.android.com/reference/android/media/SoundPool
-    private val soundPool = SoundPool.Builder().build()
+    private val soundPool = SoundPool.Builder().build() //See: https://developer.android.com/reference/android/media/SoundPool
     private var tickingSoundId: Int? = null
     private var bellSoundId: Int? = null
 
@@ -67,6 +66,11 @@ class MainActivity : AppCompatActivity() {
         )
     }
 
+    private fun initSounds() {
+        tickingSoundId = soundPool.load(this, R.raw.timer_ticking, 1)
+        bellSoundId = soundPool.load(this, R.raw.timer_bell,1)
+    }
+
     private fun startCountDown(initialMills: Long) {
         currentCountDownTimer = createCountDownTimer(initialMills)
         currentCountDownTimer?.start()
@@ -114,10 +118,5 @@ class MainActivity : AppCompatActivity() {
     private fun updateSeekBarUI(remainMills: Long){
         val remainMinutes: Int = (remainMills / 1000 / 60).toInt()
         binding.seekBar.progress =  remainMinutes
-    }
-
-    private fun initSounds() {
-        tickingSoundId = soundPool.load(this, R.raw.timer_ticking, 1)
-        bellSoundId = soundPool.load(this, R.raw.timer_bell,1)
     }
 }

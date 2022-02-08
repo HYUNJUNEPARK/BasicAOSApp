@@ -9,4 +9,8 @@
     <color name="white">#FFFFFFFF</color>
     <color name="red">#C4C31C1C</color>
     <color name="transparent">#00000000</color>
+    <color name="thumb1">#37873A</color>
+    <color name="thumb2">#8137873A</color>
+    <color name="progress">#6DAE70</color>
+
 </resources>

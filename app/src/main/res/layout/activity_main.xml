@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/red"
     tools:context=".MainActivity">
 
     <ImageView
@@ -19,7 +20,7 @@
         android:id="@+id/remainMinutesTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="00'"
+        android:text="@string/time"
         android:textColor="@color/white"
         android:textSize="120sp"
         android:textStyle="bold"
@@ -33,7 +34,7 @@
         android:id="@+id/remainSecondsTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="00"
+        android:text="@string/time"
         android:textColor="@color/white"
         android:textSize="70sp"
         android:textStyle="bold"
@@ -47,9 +48,8 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:max="60"
-        android:progressDrawable="@color/transparent"
-        android:thumb="@drawable/ic_seekbar_thumb"
-        android:tickMark="@drawable/tick_mark"
+        android:progressDrawable="@drawable/seekbar_progress"
+        android:thumb="@drawable/seekbar_thumb"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
