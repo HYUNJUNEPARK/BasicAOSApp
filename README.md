@@ -1,6 +1,6 @@
 # BMICalculator
 
-<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/1_BMICalculator.jpg height="400"/>
+<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/1_BMICalculator.jpg" height="400"/>
 
 - BMI 지수는 소수 한자리까지만 출력됨
 - BMI 결과의 색상은 하단 이미지뷰의 체형별 결과값의 색상과 같음
