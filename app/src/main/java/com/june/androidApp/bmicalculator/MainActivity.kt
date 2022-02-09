@@ -19,40 +19,42 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+        initButton()
+    }
+
+    private fun initButton() {
         binding.resultButton.setOnClickListener {
-            //[START Null check]
-            val _height = binding.heightEditText.text
-            val _weight = binding.weightEditText.text
-            if(_height.isEmpty() || _weight.isEmpty()){
-                Toast.makeText(this,"정확한 숫자를 입력해주세요", Toast.LENGTH_SHORT).show()
+            if (checkUserInputNull()) {
+                Toast.makeText(this, "정확한 숫자를 입력해주세요", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
+            } else {
+                val height = binding.heightEditText.text.toString().toInt()
+                val weight = binding.weightEditText.text.toString().toInt()
+                bmiCalculator(height, weight)
             }
-            //[END Null check]
-
-            //[START BMI 계산]
-            val height = _height.toString().toInt()
-            val weight = _weight.toString().toInt()
-            bmiCalculator(height, weight)
-            //[ENd BMI 계산]
-
-            binding.heightEditText.setText("")
-            binding.weightEditText.setText("")
-
         }
     }
 
-    private fun bmiCalculator(height:Int, weight:Int) {
-        val __bmi = weight / (height / 100.0).pow(2.0)
-        val _bmi = round(__bmi*10)/10
+    private fun checkUserInputNull(): Boolean {
+        val height = binding.heightEditText.text
+        val weight = binding.weightEditText.text
+        return height.isEmpty() || weight.isEmpty()
+    }
+
+    private fun bmiCalculator(height: Int, weight: Int) {
+        val bmiPow = weight / (height / 100.0).pow(2.0)
+        val bmiRound = round(bmiPow * 10) / 10
         val resultText = when {
-            _bmi >= 30.0 -> "OBESE"
-            _bmi >= 25.0 -> "OVERWEIGHT"
-            _bmi >= 23.0 -> "RISK TO OVERWEIGHT"
-            _bmi >= 18.5 -> "NORMAL"
+            bmiRound >= 30.0 -> "OBESE"
+            bmiRound >= 25.0 -> "OVERWEIGHT"
+            bmiRound >= 23.0 -> "RISK TO OVERWEIGHT"
+            bmiRound >= 18.5 -> "NORMAL"
             else -> "UNDERWEIGHT"
         }
-        val bmi:String = _bmi.toString()
+        val bmi: String = bmiRound.toString()
         openCloseDialog(bmi, resultText)
+        binding.heightEditText.setText("")
+        binding.weightEditText.setText("")
     }
 
     private fun openCloseDialog(bmi: String, resultText: String) {
@@ -79,13 +81,13 @@ class MainActivity : AppCompatActivity() {
         //[END 팝업 닫기 버튼]
     }
 
-    private fun setColor(resultText: String, bmiResult: TextView){
-        when(resultText) {
+    private fun setColor(resultText: String, bmiResult: TextView) {
+        when (resultText) {
             "OBESE" -> bmiResult.setTextColor(Color.parseColor("#FF0000"))
-            "OVERWEIGHT" ->bmiResult.setTextColor(Color.parseColor("#FF8000"))
-            "RISK TO OVERWEIGHT" ->bmiResult.setTextColor(Color.parseColor("#FFFF00"))
-            "NORMAL" ->bmiResult.setTextColor(Color.parseColor("#00FF00"))
-            else ->  bmiResult.setTextColor(Color.parseColor("#00FFFF"))
+            "OVERWEIGHT" -> bmiResult.setTextColor(Color.parseColor("#FF8000"))
+            "RISK TO OVERWEIGHT" -> bmiResult.setTextColor(Color.parseColor("#FFFF00"))
+            "NORMAL" -> bmiResult.setTextColor(Color.parseColor("#00FF00"))
+            else -> bmiResult.setTextColor(Color.parseColor("#00FFFF"))
         }
     }
 }
