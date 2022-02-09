@@ -37,6 +37,11 @@ class MainActivity : AppCompatActivity() {
         soundPool.release() //사운드 파일이 메모리에 계속 올라가 있으면 자원낭비
     }
 
+    private fun initSounds() {
+        tickingSoundId = soundPool.load(this, R.raw.timer_ticking, 1)
+        bellSoundId = soundPool.load(this, R.raw.timer_bell,1)
+    }
+
     //See: https://developer.android.com/reference/android/widget/SeekBar.OnSeekBarChangeListener
     private fun initSeekBar() {
         binding.seekBar.setOnSeekBarChangeListener(
@@ -64,11 +69,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         )
-    }
-
-    private fun initSounds() {
-        tickingSoundId = soundPool.load(this, R.raw.timer_ticking, 1)
-        bellSoundId = soundPool.load(this, R.raw.timer_bell,1)
     }
 
     private fun startCountDown(initialMills: Long) {
