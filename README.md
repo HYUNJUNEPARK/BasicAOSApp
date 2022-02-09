@@ -3,7 +3,10 @@
 <img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/5_PomodoroTimer.png" height="400"/>
 
 ---
-
+1. SeekBar</br>
+2. SoundPool</br>
+3. CountDownTimer</br>
+---
 >**SeekBar**</br>
 ```xml
 <!--xml-->
