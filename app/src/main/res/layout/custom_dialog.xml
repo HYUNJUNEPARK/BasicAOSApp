@@ -68,8 +68,9 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="horizontal">
+
         <Button
-            android:id="@+id/btn_confirm"
+            android:id="@+id/btn_close"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/mainColor"
@@ -77,8 +78,8 @@
             android:onClick="mOnClose"
             android:padding="16dp"
             android:text="확인"
-            android:textStyle="bold"
             android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:textStyle="bold" />
     </LinearLayout>
 </LinearLayout>
