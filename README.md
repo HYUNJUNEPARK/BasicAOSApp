@@ -41,9 +41,11 @@ binding.numberPicker.maxValue = 45
 
 ><a href = "#content3">**3. forEachIndexed**</a></br>
 
-객체뿐 아니라 인덱스 데이터도 필요할 때 사용
+리스트에서 객체뿐 아니라 인덱스 데이터도 필요할 때 사용
 
 ```kotlin
+val numberList:List<Int> = makeRandomNumber()
+
 numberList.forEachIndexed { index, number ->
 //...    
 }
