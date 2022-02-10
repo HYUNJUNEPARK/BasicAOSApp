@@ -9,13 +9,11 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import com.june.androidApp.bmicalculator.databinding.ActivityMainBinding
-import com.june.androidApp.bmicalculator.databinding.CustomDialogBinding
 import kotlin.math.pow
 import kotlin.math.round
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private val bindingDialog by lazy { CustomDialogBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,39 +62,31 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun openCloseDialog(bmi: String, bmiResultText: String) {
-        //[START 팝업 세팅&열기]
         val mDialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog, null)
-        val mBuilder = AlertDialog.Builder(this).setView(mDialogView)
+        val mDialogBuilder = AlertDialog.Builder(this).setView(mDialogView)
 
-//        bindingDialog.tvBmiValue.text = bmi /*bmi 값 UI 세팅*/
-        val bmiValue = mDialogView.findViewById<TextView>(R.id.tv_bmi_value)
-        bmiValue.text = bmi
-
-        /*bmi 결과 UI 세팅*/
-//      bindingDialog.tvBmiResult.text = resultText
-
-        val bmiResult = mDialogView.findViewById<TextView>(R.id.tv_bmi_result)
-        setBmiTextColor(bmiResultText, bmiResult)
-        bmiResult.text = bmiResultText
-        /*팝업 열기*/
-
-        val mAlertDialog = mBuilder.show()
-        //[END 팝업 세팅&열기]
-
-        //[START 팝업 닫기 버튼]
+        val bmiValueTextView = mDialogView.findViewById<TextView>(R.id.tv_bmi_value)
+        val bmiResultTextView = mDialogView.findViewById<TextView>(R.id.tv_bmi_result)
         val closeBtn = mDialogView.findViewById<Button>(R.id.btn_close)
+
+        bmiValueTextView.text = bmi //bmi 수치
+        setBmiTextColor(bmiResultText, bmiResultTextView)
+        bmiResultTextView.text = bmiResultText //bmi 결과 값
+
+        val mAlertDialog = mDialogBuilder.show()
+
         closeBtn.setOnClickListener {
             mAlertDialog.dismiss()
         }
     }
 
-    private fun setBmiTextColor(bmiResultText: String, bmiResult: TextView) {
+    private fun setBmiTextColor(bmiResultText: String, bmiResultTextView: TextView) {
         when (bmiResultText) {
-            getString(R.string.obese) -> bmiResult.setTextColor(Color.parseColor("#${getString(R.string.red)}"))
-            getString(R.string.overweight) -> bmiResult.setTextColor(Color.parseColor("#${getString(R.string.orange)}"))
-            getString(R.string.risk_to_overweight) -> bmiResult.setTextColor(Color.parseColor("#${getString(R.string.yellow)}"))
-            getString(R.string.normal) -> bmiResult.setTextColor(Color.parseColor("#${getString(R.string.green)}"))
-            else -> bmiResult.setTextColor(Color.parseColor("#${getString(R.string.black)}"))
+            getString(R.string.obese) -> bmiResultTextView.setTextColor(Color.parseColor("#${getString(R.string.red)}"))
+            getString(R.string.overweight) -> bmiResultTextView.setTextColor(Color.parseColor("#${getString(R.string.orange)}"))
+            getString(R.string.risk_to_overweight) -> bmiResultTextView.setTextColor(Color.parseColor("#${getString(R.string.yellow)}"))
+            getString(R.string.normal) -> bmiResultTextView.setTextColor(Color.parseColor("#${getString(R.string.green)}"))
+            else -> bmiResultTextView.setTextColor(Color.parseColor("#${getString(R.string.black)}"))
         }
     }
 }
