@@ -4,7 +4,7 @@
 
 ---
 1. <a href = "#content1">Shape Drawable</a></br>
-2. <a href = "#content2"> NumberPicker</a></br>
+2. <a href = "#content2">NumberPicker</a></br>
 3. <a href = "#content3">forEachIndexed</a></br>
 * <a href = "#ref">참고링크</a>
 ---
@@ -26,11 +26,21 @@ drawable 우클릭 new -> Drawable Resource File -> Root Element 에 shape 입�
 </shape>
 ```
 
-Shape Drawable 을 불러오려면 context 가 필요
+소스코드에서 Shape Drawable 을 불러와 사용하려면 ContextCompat.getDrawable()에 context 가 필요
 
 `textView.background = ContextCompat.getDrawable(this, R.drawable.circle_green)`
 
-><a href = "#content2">**2. NumberPicker**</a></br>
+TextView
+
+```xml
+<TextView
+    android:id="@+id/ball1"
+    android:background="@drawable/circle_blue"/>
+```
+
+<br></br>
+<br></br>
+><a id = "#content2">**2. NumberPicker**</a></br>
 
 minValue, maxValue 로 범위 지정해 사용
 
@@ -38,15 +48,16 @@ minValue, maxValue 로 범위 지정해 사용
 binding.numberPicker.minValue = 1
 binding.numberPicker.maxValue = 45
 ```
+<br></br>
+<br></br>
+><a id = "#content3">**3. forEachIndexed**</a></br>
 
-><a href = "#content3">**3. forEachIndexed**</a></br>
-
-리스트에서 객체뿐 아니라 인덱스 데이터도 필요할 때 사용
+리스트에서 객체 데이터와 인덱스 데이터가 필요할 때 사용
 
 ```kotlin
 val numberList:List<Int> = makeRandomNumber()
 
-numberList.forEachIndexed { index, number ->
+numberList.forEachIndexed { indexData, objData ->
 //...    
 }
 ```

@@ -13,10 +13,9 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var checkerPressedCNB: Boolean = false //CNB(CreateNumberButton)
     private val pickedNumberSet = hashSetOf<Int>() //choiceNumberButton 버튼으로 숫자 생성하고 createButton 버튼을 눌렀을 때 중복을 피함(mutableSetOf<Int>()를 사용해도 됨)
-    private val chosenNumberTextViewList: List<TextView> by lazy {
+    private val ballUIList: List<TextView> by lazy {
         listOf<TextView>(
-            binding.chosenNumberOne, binding.chosenNumberTwo, binding.chosenNumberThree,
-            binding.chosenNumberFour, binding.chosenNumberFive, binding.chosenNumberSix
+            binding.ball1, binding.ball2, binding.ball3, binding.ball4, binding.ball5, binding.ball6
         )
     }
 
@@ -37,19 +36,19 @@ class MainActivity : AppCompatActivity() {
 
     private fun initCreateNumberButton() {
         binding.createNumberButton.setOnClickListener {
-            val numberList:Set<Int> = makeRandomNumber() //Alg 2. Set<Int> -> List<Int>
+            val numberList:Set<Int> = makeRandomNumber() //TODO: Alg 2. Set<Int> -> List<Int>
             checkerPressedCNB = true
 
             numberList.forEachIndexed { index, number ->
-                val chosenNumberTextView = chosenNumberTextViewList[index]
-                chosenNumberTextView.isVisible = true
-                setCircleBackgroundColor(number, chosenNumberTextView)
-                chosenNumberTextView.text = number.toString()
+                val ball = ballUIList[index]
+                ball.isVisible = true
+                setBallBackgroundColor(number, ball)
+                ball.text = number.toString()
             }
         }
     }
 
-    private fun makeRandomNumber(): Set<Int> { //Alg 2. Set<Int> -> List<Int>
+    private fun makeRandomNumber(): Set<Int> { //TODO: Alg 2. Set<Int> -> List<Int>
         //Alg 1. set 을 이용해 랜덤 숫자 생성
         val numberSet = mutableSetOf<Int>()
 
@@ -81,13 +80,13 @@ class MainActivity : AppCompatActivity() {
 //        return sixNumberList.sorted() //오름차순 정렬
     }
 
-    private fun setCircleBackgroundColor(number:Int, chosenNumberTextView: TextView){
+    private fun setBallBackgroundColor(number:Int, ball: TextView){
         when(number) {
-            in 1..10 -> chosenNumberTextView.background = ContextCompat.getDrawable(this, R.drawable.circle_red)
-            in 11..20 -> chosenNumberTextView.background = ContextCompat.getDrawable(this, R.drawable.circle_orange)
-            in 21..30 -> chosenNumberTextView.background = ContextCompat.getDrawable(this, R.drawable.circle_yellow)
-            in 31..40 -> chosenNumberTextView.background = ContextCompat.getDrawable(this, R.drawable.circle_green)
-            else -> chosenNumberTextView.background = ContextCompat.getDrawable(this, R.drawable.circle_blue)
+            in 1..10 -> ball.background = ContextCompat.getDrawable(this, R.drawable.circle_red)
+            in 11..20 -> ball.background = ContextCompat.getDrawable(this, R.drawable.circle_orange)
+            in 21..30 -> ball.background = ContextCompat.getDrawable(this, R.drawable.circle_yellow)
+            in 31..40 -> ball.background = ContextCompat.getDrawable(this, R.drawable.circle_green)
+            else -> ball.background = ContextCompat.getDrawable(this, R.drawable.circle_blue)
         }
     }
 
@@ -95,7 +94,7 @@ class MainActivity : AppCompatActivity() {
         binding.clearButton.setOnClickListener {
             checkerPressedCNB = false
             pickedNumberSet.clear()
-            chosenNumberTextViewList.forEach {
+            ballUIList.forEach {
                 it.isVisible = false
             }
         }
@@ -103,7 +102,6 @@ class MainActivity : AppCompatActivity() {
 
     private fun initChoiceNumberButton() {
         binding.choiceNumberButton.setOnClickListener {
-            //[START 예외처리]
             if(checkerPressedCNB){ //이미 createButton 버튼을 눌러 6개 번호를 얻었다면 토스트 메세지를 띄움
                 Toast.makeText(this, R.string.toast_initialize, Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
@@ -116,15 +114,15 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this, R.string.toast_overlap, Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-            //[END 예외처리]
-
-            //[START NumberPicker 값 UI 세 팅]
-            val chosenNumberTextView = chosenNumberTextViewList[pickedNumberSet.size]
-            chosenNumberTextView.isVisible = true
-            chosenNumberTextView.text = binding.numberPicker.value.toString()
-            setCircleBackgroundColor(binding.numberPicker.value, chosenNumberTextView)
-            pickedNumberSet.add(binding.numberPicker.value)
-            //[END NumberPicker 값 UI 세팅]
+            setBallUI()
         }
+    }
+
+    private fun setBallUI() {
+        val ball = ballUIList[pickedNumberSet.size]
+        ball.isVisible = true
+        ball.text = binding.numberPicker.value.toString()
+        setBallBackgroundColor(binding.numberPicker.value, ball)
+        pickedNumberSet.add(binding.numberPicker.value)
     }
 }

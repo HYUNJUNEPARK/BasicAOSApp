@@ -62,7 +62,7 @@
         app:layout_constraintTop_toBottomOf="@id/choiceNumberButton">
 
         <TextView
-            android:id="@+id/chosenNumberOne"
+            android:id="@+id/ball1"
             tools:visibility="visible"
             android:visibility="gone"
             android:layout_width="wrap_content"
@@ -76,7 +76,7 @@
             android:background="@drawable/circle_blue"/>
 
         <TextView
-            android:id="@+id/chosenNumberTwo"
+            android:id="@+id/ball2"
             tools:visibility="visible"
             android:visibility="gone"
             android:layout_width="wrap_content"
@@ -90,7 +90,7 @@
             android:background="@drawable/circle_blue"/>
 
         <TextView
-            android:id="@+id/chosenNumberThree"
+            android:id="@+id/ball3"
             tools:visibility="visible"
             android:visibility="gone"
             android:layout_width="wrap_content"
@@ -104,7 +104,7 @@
             android:background="@drawable/circle_blue"/>
 
         <TextView
-            android:id="@+id/chosenNumberFour"
+            android:id="@+id/ball4"
             tools:visibility="visible"
             android:visibility="gone"
             android:layout_width="wrap_content"
@@ -118,7 +118,7 @@
             android:background="@drawable/circle_blue"/>
 
         <TextView
-            android:id="@+id/chosenNumberFive"
+            android:id="@+id/ball5"
             tools:visibility="visible"
             android:visibility="gone"
             android:layout_width="wrap_content"
@@ -132,7 +132,7 @@
             android:background="@drawable/circle_blue"/>
 
         <TextView
-            android:id="@+id/chosenNumberSix"
+            android:id="@+id/ball6"
             tools:visibility="visible"
             android:visibility="gone"
             android:layout_width="wrap_content"
