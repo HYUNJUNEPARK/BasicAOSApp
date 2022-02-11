@@ -2,4 +2,12 @@
     <string name="app_name">Diary</string>
     <string name="title">The Secret Diary</string>
     <string name="initialize">Initialize</string>
+    <!--Toast Message-->
+    <string name="changing_pw">비밀번호 변경 중입니다.</string>
+    <string name="insert_pw">변경할 비밀번호를 입력해주세요.</string>
+    <string name="changed_pw">비밀번호가 변경되었습니다.</string>
+    <!--Alert Dialog-->
+    <string name="wrong_pw">비밀번호가 잘못되었습니다.</string>
+    <string name="error">Error</string>
+    <string name="confirm">확인</string>
 </resources>
