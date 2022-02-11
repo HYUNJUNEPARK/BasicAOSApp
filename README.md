@@ -4,9 +4,11 @@
 
 ---
 1. Dialog</br>
-2. 소스코드에서 XML 텍스트 컬러 속성 변경</br>
+2. string.xml 에서 Toast 메시지 갖고오기</br>
+3. findViewById<>()사용</br>
+4. string.xml 의 String 데이터 colorString 으로 사용하는 법</br>
 ---
->**Dialog**</br>
+>**1. Dialog**</br>
 ```kotlin
 //1. View/Builder 세팅
 val mDialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog, null)
@@ -18,17 +20,20 @@ val mAlertDialog = mDialogBuilder.show()
 //3. Dialog 닫기
 mAlertDialog.dismiss()
 ```
-
-
->**string.xml 에서 Toast 메시지 갖고오기**</br>
+<br></br>
+<br></br>
+>**2. string.xml 에서 Toast 메시지 갖고오기**</br>
 
 `Toast.makeText(this, R.string.toast, Toast.LENGTH_SHORT).show()`
+<br></br>
+<br></br>
 
->**findViewById<>()사용**</br>
+>**3. findViewById<>()사용**</br>
 
 `val bmiValueTextView = mDialogView.findViewById<TextView>(R.id.tv_bmi_value)`
-
->**string.xml 의 String 데이터 colorString 으로 사용하는 법** - public static int parseColor(String colorString)</br>
+<br></br>
+<br></br>
+>**4. string.xml 의 String 데이터 colorString 으로 사용하는 법** - public static int parseColor(String colorString)</br>
 ```kotlin
 when (resultText) {
     getString(R.string.obese) -> bmiResult.setTextColor(Color.parseColor("#${getString(R.string.red)}"))
@@ -36,6 +41,8 @@ when (resultText) {
     else -> bmiResult.setTextColor(Color.parseColor("#${getString(R.string.black)}"))
 }
 ```
+<br></br>
+<br></br>
 ---
 
 
