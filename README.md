@@ -30,7 +30,7 @@ drawable 우클릭 new -> Drawable Resource File -> Root Element 에 shape 입�
 
 `textView.background = ContextCompat.getDrawable(this, R.drawable.circle_green)`
 
-TextView
+TextView 에 Shape drawable 사용
 
 ```xml
 <TextView
