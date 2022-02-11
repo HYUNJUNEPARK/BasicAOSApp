@@ -40,7 +40,7 @@ TextView
 
 <br></br>
 <br></br>
-><a id = "#content2">**2. NumberPicker**</a></br>
+><a id = "content2">**2. NumberPicker**</a></br>
 
 minValue, maxValue 로 범위 지정해 사용
 
@@ -50,7 +50,7 @@ binding.numberPicker.maxValue = 45
 ```
 <br></br>
 <br></br>
-><a id = "#content3">**3. forEachIndexed**</a></br>
+><a id = "content3">**3. forEachIndexed**</a></br>
 
 리스트에서 객체 데이터와 인덱스 데이터가 필요할 때 사용
 
