@@ -1,4 +1,4 @@
-package com.june.recoder
+package com.june.recorder
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

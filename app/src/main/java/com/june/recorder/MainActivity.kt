@@ -1,4 +1,4 @@
-package com.june.recoder
+package com.june.recorder
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -6,13 +6,14 @@ import android.media.MediaPlayer
 import android.media.MediaRecorder
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.june.recoder.databinding.ActivityMainBinding
+import com.june.recorder.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var state = State.BEFORE_RECORDING
         set(value) { //state 가 변할 때 호출됨
             field = value
+            binding.resetButton.isEnabled = (value == State.AFTER_RECORDING) || (value ==State.ON_PLAYING)
             binding.recordButton.updateIconWithState(value)
         }
     private val requiredPermissions = arrayOf(
@@ -33,9 +34,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        initViews()
         requestAudioPermission()
+        initViews()
         bindViews()
+        initVariables()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
@@ -59,6 +61,10 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun bindViews() {
+        binding.resetButton.setOnClickListener {
+            stopPlaying()
+            state = State.BEFORE_RECORDING
+        }
         binding.recordButton.setOnClickListener {
             when(state){
                 State.BEFORE_RECORDING -> {
@@ -75,6 +81,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+    }
+
+    private fun initVariables() {
+        state = State.BEFORE_RECORDING
     }
 
     //See: https://developer.android.com/reference/android/media/MediaRecorder

@@ -1,4 +1,4 @@
-package com.june.recoder
+package com.june.recorder
 
 enum class State {
     BEFORE_RECORDING,

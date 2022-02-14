@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context="com.june.recorder.MainActivity">
 
     <Button
         android:id="@+id/resetButton"
@@ -26,7 +26,7 @@
         app:layout_constraintLeft_toLeftOf="@id/recordButton"
         app:layout_constraintRight_toRightOf="@id/recordButton" />
 
-    <com.june.recoder.RecordButton
+    <com.june.recorder.RecordButton
         android:id="@+id/recordButton"
         android:layout_width="100dp"
         android:layout_height="100dp"
