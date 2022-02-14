@@ -9,6 +9,7 @@
     tools:context=".DiaryActivity">
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
@@ -24,7 +25,7 @@
     <EditText
         android:id="@+id/diaryEditText"
         android:layout_width="0dp"
-        android:layout_height="450dp"
+        android:layout_height="200dp"
         android:background="@color/white"
         android:gravity="start|top"
         android:padding="10dp"
@@ -37,10 +38,10 @@
         android:id="@+id/initializeButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:text="@string/initialize"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diaryEditText" />
+        app:layout_constraintEnd_toEndOf="@id/diaryEditText"
+        app:layout_constraintBottom_toBottomOf="@id/title"
+        app:layout_constraintTop_toTopOf="@+id/title"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
