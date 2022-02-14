@@ -21,11 +21,8 @@ class MainActivity : AppCompatActivity() {
         Manifest.permission.READ_EXTERNAL_STORAGE
     )
     private var recorder: MediaRecorder? = null
-    private val recordingFilePath: String by lazy {
-        "${externalCacheDir?.absolutePath}/recording.3gp"
-    }
+    private val recordingFilePath: String by lazy { "${externalCacheDir?.absolutePath}/recording.3gp" }
     private var player: MediaPlayer? = null
-
     companion object {
         private const val REQUEST_RECORD_AUDIO_PERMISSION = 201
     }
