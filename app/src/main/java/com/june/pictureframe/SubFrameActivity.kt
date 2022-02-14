@@ -17,7 +17,7 @@ class SubFrameActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        getPhotoUriFrameIntent()
+        getPhotoUriAndParsing()
     }
 
     override fun onStop() {
@@ -35,7 +35,7 @@ class SubFrameActivity : AppCompatActivity() {
         timer?.cancel()
     }
 
-    private fun getPhotoUriFrameIntent() {
+    private fun getPhotoUriAndParsing() {
         val photoListSize = intent.getIntExtra("photoListSize", 0)
         for (i in 0..photoListSize) {
             intent.getStringExtra("photo$i")?.let { uri_str ->
@@ -48,11 +48,13 @@ class SubFrameActivity : AppCompatActivity() {
         timer = timer(period = 5000) {
             runOnUiThread {
                 val currentSlidePosition = currentPosition
-                val nextSlidePosition = if (photoList.size <= currentPosition + 1) {
-                    0//슬라이드 인덱스 넘어가면 초기화
-                } else {
-                    currentPosition + 1//다음 슬라이드 인덱스
-                }
+                val nextSlidePosition =
+                    if (photoList.size <= currentPosition + 1) {
+                        0//슬라이드 인덱스 넘어가면 초기화
+                    }
+                    else {
+                        currentPosition + 1//다음 슬라이드 인덱스
+                    }
                 //frontImageView 투명 -> backImageView 이미지 보임
                 binding.backImageView.setImageURI(photoList[currentSlidePosition])
                 binding.frontImageView.alpha = 0f//투명
