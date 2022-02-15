@@ -7,6 +7,7 @@
 2. <a href = "#content2">MediaRecorder</a></br>
 3. <a href = "#content3">State Variable</a></br>
 4. <a href = "#content4">Scoped Storage</a></br>
+4. <a href = "#content5">Custom Drawing</a></br>
 * <a href = "#ref">참고링크</a>
 ---
 ><a id = "content1">**1. CustomView**</a></br>
@@ -168,7 +169,37 @@ READ/WRITE 시 사용자 동의를 받아야함</br>
 
 `${Environment.getExternalStorageDirectory()}` /storage/emulated/0</br>
 `${Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)` /storage/emulated/0/Pictures</br>
+<br></br>
+<br></br>
 
+
+><a id = "content5">**5. Custom Drawing**</a></br>
+
+**Paint**</br>
+그리는 도형의 색상, 스타일, 글꼴 등을 정의</br>
+그림을 그리기 전 하나 이상의 Paint 객체를 만들어야함</br>
+onDraw() 메서드 내에서 Paint 객체를 만들면 성능 저하됨</br>
+
+```kotlin
+//Paint 객체
+private val amplitudePaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+    color = context.getColor(R.color.purple_500)
+    strokeWidth = LINE_WIDTH
+    strokeCap = Paint.Cap.ROUND
+}
+```
+
+**Canvas**</br>
+화면에 그릴 수 있는 도형을 정의</br>
+onDraw(canvas: Canvas?) 를 오버라이딩해 맞춤 사용자 UI 를 만듬</br>
+
+```kotlin
+override fun onDraw(canvas: Canvas?) {
+    super.onDraw(canvas)
+    //...
+    canvas.drawLine(startX, startY, stopX, stopY, amplitudePaint)
+}
+```
 <br></br>
 <br></br>
 ---
@@ -181,6 +212,9 @@ https://codechacha.com/ko/android-data-storage/</br>
 
 음성 녹음을 위한 MediaRecorder</br>
 https://codetravel.tistory.com/11</br>
+
+Custom Drawing</br>
+https://developer.android.com/training/custom-views/custom-drawing</br>
 
 View 의 각종 활성화 비활성화 상태</br>
 https://arabiannight.tistory.com/352</br>
