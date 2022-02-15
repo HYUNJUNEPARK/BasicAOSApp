@@ -58,8 +58,6 @@ class SoundVisualizerView(context: Context, attrs: AttributeSet? = null) : View(
                 amplitudePaint
             )
 
-
-
         }
 
     }

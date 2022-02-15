@@ -10,22 +10,26 @@ import com.june.recorder.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
-    private var state = State.BEFORE_RECORDING
-        set(value) { //state 가 변할 때 호출됨
-            field = value
-            binding.resetButton.isEnabled = (value == State.AFTER_RECORDING) || (value ==State.ON_PLAYING)
-            binding.recordButton.updateIconWithState(value)
-        }
-    private val requiredPermissions = arrayOf(
-        Manifest.permission.RECORD_AUDIO,
-        Manifest.permission.READ_EXTERNAL_STORAGE
-    )
-    private var recorder: MediaRecorder? = null
-    private val recordingFilePath: String by lazy { "${externalCacheDir?.absolutePath}/recording.3gp" }
-    private var player: MediaPlayer? = null
+    //Permission
+    private val requiredPermissions = arrayOf(Manifest.permission.RECORD_AUDIO, Manifest.permission.READ_EXTERNAL_STORAGE)
     companion object {
         private const val REQUEST_RECORD_AUDIO_PERMISSION = 201
     }
+
+    //MediaPlayer / MediaRecorder
+    private var player: MediaPlayer? = null
+    private var recorder: MediaRecorder? = null
+    private val recordingFilePath: String by lazy {
+        "${externalCacheDir?.absolutePath}/recording.3gp"
+    }//storage/emulated/self/Android/data/package_name/cache/recording.3gp
+
+    //State -> Button UI
+    private var state = State.BEFORE_RECORDING
+        set(value) { //state 가 변할 때마다 호출됨
+            field = value
+            binding.recordButton.updateIconWithState(value)
+            binding.resetButton.isEnabled = (value == State.AFTER_RECORDING) || (value == State.ON_PLAYING)
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,28 +37,29 @@ class MainActivity : AppCompatActivity() {
 
         requestAudioPermission()
         initViews()
-        bindViews()
         initVariables()
+        bindViews()
+    }
+
+    private fun requestAudioPermission() {
+        requestPermissions(requiredPermissions, REQUEST_RECORD_AUDIO_PERMISSION)
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
         val audioRecordPermissionGranted: Boolean =
-            requestCode == REQUEST_RECORD_AUDIO_PERMISSION &&
-                    grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED
+            (requestCode == REQUEST_RECORD_AUDIO_PERMISSION && grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED)
 
-        if (!audioRecordPermissionGranted) {
-            finish()
-        }
+        if (!audioRecordPermissionGranted) { finish() }
     }
 
     private fun initViews() {
         binding.recordButton.updateIconWithState(state)
     }
 
-    private fun requestAudioPermission() {
-        requestPermissions(requiredPermissions, REQUEST_RECORD_AUDIO_PERMISSION)
+    private fun initVariables() {
+        state = State.BEFORE_RECORDING
     }
 
     private fun bindViews() {
@@ -64,36 +69,21 @@ class MainActivity : AppCompatActivity() {
         }
         binding.recordButton.setOnClickListener {
             when(state){
-                State.BEFORE_RECORDING -> {
-                    startRecording()
-                }
-                State.ON_RECORDING -> {
-                    stopRecording()
-                }
-                State.AFTER_RECORDING -> {
-                    startPlaying()
-                }
-                State.ON_PLAYING -> {
-                    stopPlaying()
-                }
+                State.BEFORE_RECORDING -> startRecording()
+                State.ON_RECORDING -> stopRecording()
+                State.AFTER_RECORDING -> startPlaying()
+                State.ON_PLAYING -> stopPlaying()
             }
         }
     }
 
-    private fun initVariables() {
-        state = State.BEFORE_RECORDING
-    }
-
-    //See: https://developer.android.com/reference/android/media/MediaRecorder
-    //https://developer.android.com/guide/topics/media/media-formats
     private fun startRecording() {
-        recorder = MediaRecorder()
-            .apply {
+        recorder = MediaRecorder().apply {
                 setAudioSource(MediaRecorder.AudioSource.MIC)
                 setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP)
                 setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB)
                 setOutputFile(recordingFilePath)
-                prepare();
+                prepare()
             }
         recorder?.start()
         state = State.ON_RECORDING
@@ -102,16 +92,14 @@ class MainActivity : AppCompatActivity() {
     private fun stopRecording() {
         recorder?.run {
             stop()
-            release() //메모리 해제
+            release()
         }
         recorder = null
         state = State.AFTER_RECORDING
     }
 
-    //See: https://developer.android.com/reference/android/media/MediaPlayer
     private fun startPlaying() {
-        player = MediaPlayer()
-            .apply {
+        player = MediaPlayer().apply {
                 setDataSource(recordingFilePath)
                 prepare()
             }
