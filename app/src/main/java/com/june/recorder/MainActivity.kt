@@ -51,7 +51,7 @@ class MainActivity : AppCompatActivity() {
         val audioRecordPermissionGranted: Boolean =
             (requestCode == REQUEST_RECORD_AUDIO_PERMISSION && grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED)
 
-        if (!audioRecordPermissionGranted) { finish() }
+        if (!audioRecordPermissionGranted) finish()
     }
 
     private fun initViews() {
@@ -75,6 +75,9 @@ class MainActivity : AppCompatActivity() {
                 State.ON_PLAYING -> stopPlaying()
             }
         }
+        binding.soundVisualizerView.onRequestCurrentAmplitude = {
+            recorder?.maxAmplitude ?:0 //return maxAmplitude
+        }
     }
 
     private fun startRecording() {
@@ -86,7 +89,9 @@ class MainActivity : AppCompatActivity() {
                 prepare()
             }
         recorder?.start()
+        binding.soundVisualizerView.startVisualizing(false)
         state = State.ON_RECORDING
+
     }
 
     private fun stopRecording() {
@@ -95,6 +100,7 @@ class MainActivity : AppCompatActivity() {
             release()
         }
         recorder = null
+        binding.soundVisualizerView.stopVisualizing()
         state = State.AFTER_RECORDING
     }
 
@@ -104,12 +110,14 @@ class MainActivity : AppCompatActivity() {
                 prepare()
             }
         player?.start()
+        binding.soundVisualizerView.startVisualizing(true)
         state = State.ON_PLAYING
     }
 
     private fun stopPlaying() {
         player?.release()
         player = null
+        binding.soundVisualizerView.stopVisualizing()
         state = State.AFTER_RECORDING
     }
 }
