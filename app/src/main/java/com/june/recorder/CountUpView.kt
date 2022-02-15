@@ -9,6 +9,7 @@ import androidx.appcompat.widget.AppCompatTextView
 class CountUpView(context: Context, attrs: AttributeSet? = null) : AppCompatTextView(context, attrs) {
     private var startTimeStamp: Long = 0L
 
+    //바꾸는 방법 있는지 알아보기
     private val countUpAction: Runnable = object: Runnable {
         override fun run() {
             val currentTimeStamp = SystemClock.elapsedRealtime()
@@ -32,5 +33,9 @@ class CountUpView(context: Context, attrs: AttributeSet? = null) : AppCompatText
         val seconds = countTimeSeconds % 60
 
         text = "%02d:%02d".format(minutes, seconds)
+    }
+
+    fun clearCountTime() {
+        updateCountTime(0)
     }
 }

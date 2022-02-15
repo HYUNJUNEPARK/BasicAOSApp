@@ -65,6 +65,8 @@ class MainActivity : AppCompatActivity() {
     private fun bindViews() {
         binding.resetButton.setOnClickListener {
             stopPlaying()
+            binding.soundVisualizerView.clearVisualization()
+            binding.recordTimeTextView.clearCountTime()
             state = State.BEFORE_RECORDING
         }
         binding.recordButton.setOnClickListener {
@@ -111,6 +113,10 @@ class MainActivity : AppCompatActivity() {
                 setDataSource(recordingFilePath)
                 prepare()
             }
+        player?.setOnCompletionListener {
+            stopPlaying()
+            state = State.AFTER_RECORDING
+        }
         player?.start()
         binding.soundVisualizerView.startVisualizing(true)
         binding.recordTimeTextView.startCountUp()

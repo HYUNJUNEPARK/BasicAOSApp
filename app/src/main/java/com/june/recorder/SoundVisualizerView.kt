@@ -5,7 +5,6 @@ import android.graphics.Canvas
 import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
-import kotlin.random.Random
 
 class SoundVisualizerView(context: Context, attrs: AttributeSet? = null) : View(context, attrs) {
     companion object {
@@ -42,6 +41,7 @@ class SoundVisualizerView(context: Context, attrs: AttributeSet? = null) : View(
             handler?.postDelayed(this, ACTION_INTERVAL)
         }
     }
+
 
     private var isReplaying: Boolean = false
 
@@ -85,11 +85,16 @@ class SoundVisualizerView(context: Context, attrs: AttributeSet? = null) : View(
 
     fun startVisualizing(isReplaying: Boolean) {
         this.isReplaying = isReplaying
-
         handler?.post(visualizeRepeatAction)
     }
 
     fun stopVisualizing() {
+        replayingPosition = 0
         handler?.removeCallbacks(visualizeRepeatAction)
+    }
+
+    fun clearVisualization() {
+        drawingAmplitudesList = emptyList()
+        invalidate()
     }
 }
