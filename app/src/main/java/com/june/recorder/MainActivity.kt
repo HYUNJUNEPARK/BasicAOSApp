@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
             binding.resetButton.isEnabled = (value == State.AFTER_RECORDING) || (value == State.ON_PLAYING)
         }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+   override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
@@ -90,6 +90,7 @@ class MainActivity : AppCompatActivity() {
             }
         recorder?.start()
         binding.soundVisualizerView.startVisualizing(false)
+        binding.recordTimeTextView.startCountUp()
         state = State.ON_RECORDING
 
     }
@@ -100,7 +101,8 @@ class MainActivity : AppCompatActivity() {
             release()
         }
         recorder = null
-        binding.soundVisualizerView.stopVisualizing()
+        binding.soundVisualizerView.stopVisualizing() //순서 바뀌면 왜 안돌아 가는지 생각해보기
+        binding.recordTimeTextView.stopCountUp()
         state = State.AFTER_RECORDING
     }
 
@@ -111,6 +113,7 @@ class MainActivity : AppCompatActivity() {
             }
         player?.start()
         binding.soundVisualizerView.startVisualizing(true)
+        binding.recordTimeTextView.startCountUp()
         state = State.ON_PLAYING
     }
 
@@ -118,6 +121,7 @@ class MainActivity : AppCompatActivity() {
         player?.release()
         player = null
         binding.soundVisualizerView.stopVisualizing()
+        binding.recordTimeTextView.stopCountUp()
         state = State.AFTER_RECORDING
     }
 }

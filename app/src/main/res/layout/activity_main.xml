@@ -26,7 +26,7 @@
         app:layout_constraintRight_toLeftOf="@id/recordButton"
         app:layout_constraintTop_toTopOf="@id/recordButton" />
 
-    <TextView
+    <com.june.recorder.CountUpView
         android:id="@+id/recordTimeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
