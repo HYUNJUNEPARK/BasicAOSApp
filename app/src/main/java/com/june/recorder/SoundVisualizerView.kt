@@ -24,28 +24,23 @@ class SoundVisualizerView(context: Context, attrs: AttributeSet? = null) : View(
     private var drawingHeight: Int = 0
     private var drawingAmplitudesList: List<Int> = emptyList()
 
+    //visualizeAmplitude
     var onRequestCurrentAmplitude: (() -> Int)? = null
+    private var replayingPosition: Int = 0
+    private var isReplaying: Boolean = false
     private val visualizeRepeatAction: Runnable = object : Runnable  {
         override fun run() {
             if (!isReplaying) {
                 val currentAmplitude = onRequestCurrentAmplitude?.invoke() ?: 0
-                //MainActivity 의 binding.soundVisualizerView.onRequestCurrentAmplitude 가 실행됨
                 drawingAmplitudesList = listOf(currentAmplitude) + drawingAmplitudesList
-                //onDraw 에서 배열의 첫번째 인자가 제일 오른쪽에 그려지고 그 다음인자는 왼쪽으로 이동해서 찍힘
             }
             else {
                 replayingPosition++
             }
-            invalidate() //뷰를 갱신해줌. 없다면 뷰는 그대로인데 데이터만 계속 쌓임
-
-            handler?.postDelayed(this, ACTION_INTERVAL)
+            invalidate()
+            handler?.postDelayed(/*Runnable Obj*/this, ACTION_INTERVAL)
         }
     }
-
-
-    private var isReplaying: Boolean = false
-
-    private var replayingPosition: Int = 0
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
@@ -71,7 +66,6 @@ class SoundVisualizerView(context: Context, attrs: AttributeSet? = null) : View(
             }
             .forEach { amplitude ->
                 val lineLength = amplitude / MAX_AMPLITUDE * drawingHeight * 0.8F //화면 크기에 맞춰 진폭값(X축) 조정
-
                 offsetX -= LINE_SPACE //오른쪽에서 LINE_SPACE 만큼 왼쪽으로 이동하며 생기는 X축 좌표
                 if (offsetX < 0) return@forEach //가장 왼쪽(끝)을 벗어난 X축 좌표
 

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.june.recorder.databinding.ActivityMainBinding
 
+
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     //Permission
@@ -25,7 +26,7 @@ class MainActivity : AppCompatActivity() {
 
     //State -> Button UI
     private var state = State.BEFORE_RECORDING
-        set(value) { //state 가 변할 때마다 호출됨
+        set(value) {
             field = value
             binding.recordButton.updateIconWithState(value)
             binding.resetButton.isEnabled = (value == State.AFTER_RECORDING) || (value == State.ON_PLAYING)
@@ -50,7 +51,6 @@ class MainActivity : AppCompatActivity() {
 
         val audioRecordPermissionGranted: Boolean =
             (requestCode == REQUEST_RECORD_AUDIO_PERMISSION && grantResults.firstOrNull() == PackageManager.PERMISSION_GRANTED)
-
         if (!audioRecordPermissionGranted) finish()
     }
 
@@ -78,7 +78,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
         binding.soundVisualizerView.onRequestCurrentAmplitude = {
-            recorder?.maxAmplitude ?:0 //return maxAmplitude
+            recorder?.maxAmplitude ?:0
         }
     }
 
@@ -94,7 +94,6 @@ class MainActivity : AppCompatActivity() {
         binding.soundVisualizerView.startVisualizing(false)
         binding.recordTimeTextView.startCountUp()
         state = State.ON_RECORDING
-
     }
 
     private fun stopRecording() {
@@ -103,7 +102,7 @@ class MainActivity : AppCompatActivity() {
             release()
         }
         recorder = null
-        binding.soundVisualizerView.stopVisualizing() //순서 바뀌면 왜 안돌아 가는지 생각해보기
+        binding.soundVisualizerView.stopVisualizing()
         binding.recordTimeTextView.stopCountUp()
         state = State.AFTER_RECORDING
     }
