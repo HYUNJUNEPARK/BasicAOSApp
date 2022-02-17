@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        initViews()
+        initWebView()
         bindViews()
     }
 
@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initViews() {
+    private fun initWebView() {
         binding.webView.apply {
             webViewClient = WebViewClient()
             webChromeClient = WebChromeClient()
@@ -44,29 +44,21 @@ class MainActivity : AppCompatActivity() {
         binding.addressBar.setOnEditorActionListener { textView, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 val loadingUrl = textView.text.toString()
-
-                if (URLUtil.isNetworkUrl(loadingUrl)) {
+                if (URLUtil.isNetworkUrl(loadingUrl)) { //true if the url is a network url
                     binding.webView.loadUrl(loadingUrl)
-                } else {
+                }
+                else {
                     binding.webView.loadUrl("http://$loadingUrl")
                 }
             }
             return@setOnEditorActionListener false
         }
-        binding.goBackButton.setOnClickListener {
-            binding.webView.goBack()
-        }
-        binding.goForwardButton.setOnClickListener {
-            binding.webView.goForward()
-        }
-        binding.goHomeButton.setOnClickListener {
-            binding.webView.loadUrl(DEFAULT_URL)
-        }
-        binding.refreshLayout.setOnRefreshListener {
-            binding.webView.reload()
-        }
+        binding.goBackButton.setOnClickListener { binding.webView.goBack() }
+        binding.goForwardButton.setOnClickListener { binding.webView.goForward() }
+        binding.goHomeButton.setOnClickListener { binding.webView.loadUrl(DEFAULT_URL) }
+        binding.refreshLayout.setOnRefreshListener { binding.webView.reload() }
     }
-    //inner 를 붙혀줘야 MainActivity 에 있는 속성에 접근할 수 있음
+
     inner class WebViewClient: android.webkit.WebViewClient() {
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
