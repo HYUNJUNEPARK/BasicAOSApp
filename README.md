@@ -1,6 +1,6 @@
 # WebBrowser
 
-<img src="이미지 주소" height="400"/>
+<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/7_WebBrowser.png" height="400"/>
 
 ---
 1. <a href = "#content1">webView</a></br>
@@ -11,7 +11,7 @@
 ><a id = "content1">**1. webView**</a></br>
 
 
--URl 주소를 입력하면 디폴트 브라우저앱이 실행되는데 오버라이딩을 통해서 커스텀된 브라우저앱을 있음</br>
+-URl 주소를 입력하면 디폴트 브라우저앱이 실행되는데 오버라이딩을 통해서 커스텀된 브라우저앱을 사용할 수 있음</br>
 
 ```xml
 //AndroidManifest.xml
@@ -51,6 +51,24 @@ inner class WebChromeClient() : android.webkit.WebChromeClient() {
     }
 }
 
+//4. 사용자 주소로 이동
+private fun bindViews(){
+    binding.addressBar.setOnEditorActionListener { textView, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) { ////키보드 엔터 버튼 클릭 시
+                val loadingUrl = textView.text.toString()
+                if (URLUtil.isNetworkUrl(loadingUrl)) { //addressBar 에 입력된 값이 URL 형식이라면
+                    binding.webView.loadUrl(loadingUrl) //URL 로드
+            }
+            else {
+                binding.webView.loadUrl("http://$loadingUrl")
+            }
+        }
+        return@setOnEditorActionListener false
+    }
+    //..
+}
+
+
 ```
 (1) `settings.javaScriptEnabled = true`</br>
 -보안상의 이유로 AOS 에서는 자바스크립트 코드를 차단하고 있는데 이로 인해 웹페이지 사용에 제한이 있음</br>
@@ -67,7 +85,8 @@ inner class WebChromeClient() : android.webkit.WebChromeClient() {
 -shouldInterceptRequest()</br>
 //resource request 를 가로채서 응답을 내리기 전에 호출되는 메소드</br>
 //이 메소드를 활용하여 특정 요청에 대한 필터링 및 응답 값 커스텀 가능</br>
--shouldOverrideUrlLoading() //현재 웹뷰에 로드될 URL 에 대한 컨트롤을 할 수 있는 메소드</br>
+-shouldOverrideUrlLoading()</br>
+//현재 웹뷰에 로드될 URL 에 대한 컨트롤을 할 수 있는 메소드</br>
 
 -webView 사용 메서드</br>
 `binding.webView.loadUrl(loadingUrl)`</br>
@@ -77,8 +96,29 @@ inner class WebChromeClient() : android.webkit.WebChromeClient() {
 
 
 (3) WebChromeClient</br>
-브라우저 관점의 이벤트 오버라이드 해서 사용</br>
-onProgressChanged() //현재 페이지 로딩 진행 상황, 0과 100 사이의 정수로 표현.(0% ~ 100%)</br>
+-브라우저 관점의 이벤트 오버라이드 해서 사용</br>
+onProgressChanged()</br>
+//현재 페이지 로딩 진행 상황, 0과 100 사이의 정수로 표현.(0% ~ 100%)</br>
+
+(4) 사용자 주소로 이동</br>
+-a. addressBar 에는 `android:imeOptions="actionDone"` 속성이 있음</br>
+
+-actionDone //키보드 엔터 버튼 클릭 시 원하는 동작 실행</br>
+-normal // 특별한 의미 없음</br>
+-actionGo // 이동(웹 브라우저에서 사용)</br>
+-actionSearch // 검색</br>
+-actionSend // 보내기</br>
+-actionNext // 다음</br>
+-actionPrevious // 이전(API 11 부터 사용 가능)</br>
+
+-b. setOnEditorActionListener 에 동작 구현
+```kotlin
+binding.addressBar.setOnEditorActionListener { textView, actionId, keyEvent ->
+    //...
+}
+```
+
+
 <br></br>
 <br></br>
 
@@ -97,7 +137,7 @@ onProgressChanged() //현재 페이지 로딩 진행 상황, 0과 100 사이의 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 ```
 
-(2) WebViewClient 에서 페이지 로드가 끝나면 onPageFinished()에서 isRefreshing = false</br>
+(2) WebViewClient 에서 페이지 로드가 끝나면 onPageFinished( )에서 `refreshLayout.isRefreshing = false`</br>
 ```kotlin
 inner class WebViewClient: android.webkit.WebViewClient() {
     override fun onPageFinished(view: WebView?, /*redirecting url*/url: String?) {
@@ -114,13 +154,15 @@ inner class WebViewClient: android.webkit.WebViewClient() {
 
 (1) progressBar 세팅</br>
 ```xml
+//xml
 <androidx.core.widget.ContentLoadingProgressBar
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"/>
 ```
 
 (2) 페이지 로드 중에는 WebChromeClient() 에 onProgressChanged() 를 오버라이딩해줌</br>
-newProgress 는 0 ~ 100 사이의 값으로 로드값을 나타냄</br>
+newProgress 는 0 ~ 100 사이의 값이며 ` binding.progressBar.progress = newProgress` 로 값에 따라 progressBar UI 업데이트</br>
 ```kotlin
+//MainActivity
 inner class WebChromeClient() : android.webkit.WebChromeClient() {
     override fun onProgressChanged(view: WebView?, newProgress: Int) {
         super.onProgressChanged(view, newProgress)
@@ -129,7 +171,7 @@ inner class WebChromeClient() : android.webkit.WebChromeClient() {
     }
 }
 ```
-
+//MainActivity
 (3) 페이지를 모두 로드하면 WebViewClient() 에  onPageFinished() 를 오버라이딩해주고 hide() 속성 부여</br>
 ```kotlin
 inner class WebViewClient: android.webkit.WebViewClient() {
@@ -150,11 +192,6 @@ https://developer.android.com/training/keyboard-input/style</br>
 https://developer.android.com/reference/android/widget/TextView#attr_android:inputType
 
 `android: inputType="textUri"`</br>
-
-TextView imeOptions</br>
-https://developer.android.com/reference/android/widget/TextView#attr_android:imeOptions</br>
-
-`android:imeOptions="actionDone"`</br>
 
 WebView</br>
 https://developer.android.com/guide/webapps/webview</br>
@@ -181,3 +218,6 @@ https://origogi.github.io/android/dark-mode/</br>
 ?attr 속성</br>
 https://developer.android.com/reference/kotlin/android/R.attr</br>
 `android:layout_height="?attr/actionBarSize"`
+
+TextView imeOptions</br>
+https://developer.android.com/reference/android/widget/TextView#attr_android:imeOptions</br>

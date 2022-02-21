@@ -40,25 +40,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun bindViews(){
-        binding.addressBar.setOnEditorActionListener { textView, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                val loadingUrl = textView.text.toString()
-                if (URLUtil.isNetworkUrl(loadingUrl)) { //true if the url is a network url
-                    binding.webView.loadUrl(loadingUrl)
-                }
-                else {
-                    binding.webView.loadUrl("http://$loadingUrl")
-                }
-            }
-            return@setOnEditorActionListener false
-        }
-        binding.goBackButton.setOnClickListener { binding.webView.goBack() }
-        binding.goForwardButton.setOnClickListener { binding.webView.goForward() }
-        binding.goHomeButton.setOnClickListener { binding.webView.loadUrl(DEFAULT_URL) }
-        binding.refreshLayout.setOnRefreshListener { binding.webView.reload() }
-    }
-
     inner class WebViewClient: android.webkit.WebViewClient() {
         override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
             super.onPageStarted(view, url, favicon)
@@ -78,11 +59,29 @@ class MainActivity : AppCompatActivity() {
     }
 
     inner class WebChromeClient() : android.webkit.WebChromeClient() {
-        override fun onProgressChanged(view: WebView?, newProgress: Int) {
+        override fun onProgressChanged(view: WebView?, newProgress: Int/*0 - 100*/) {
             super.onProgressChanged(view, newProgress)
 
             binding.progressBar.progress = newProgress
         }
     }
 
+    private fun bindViews(){
+        binding.addressBar.setOnEditorActionListener { textView, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                val loadingUrl = textView.text.toString()
+                if (URLUtil.isNetworkUrl(loadingUrl)) { //true if the url is a network url
+                    binding.webView.loadUrl(loadingUrl)
+                }
+                else {
+                    binding.webView.loadUrl("http://$loadingUrl")
+                }
+            }
+            return@setOnEditorActionListener false
+        }
+        binding.goBackButton.setOnClickListener { binding.webView.goBack() }
+        binding.goForwardButton.setOnClickListener { binding.webView.goForward() }
+        binding.goHomeButton.setOnClickListener { binding.webView.loadUrl(DEFAULT_URL) }
+        binding.refreshLayout.setOnRefreshListener { binding.webView.reload() }
+    }
 }
