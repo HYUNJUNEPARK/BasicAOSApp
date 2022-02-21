@@ -15,7 +15,8 @@
 
 ```xml
 //AndroidManifest.xml
-//http 로 접근하면 보안 이슈가 있어 앱 실행에 문제가 생김. 해당 앱은 기능 구현에 중점을 둔 앱이기 때문에 http 프로토콜 사용 허용
+//http 로 접근하면 보안 이슈가 있어 앱 실행에 문제가 생김.
+//해당 앱은 기능 구현에 중점을 둔 앱이기 때문에 http 프로토콜 사용 허용
 android:usesCleartextTraffic="true"
 ```
 
@@ -173,4 +174,10 @@ https://developer.android.com/reference/android/widget/ProgressBar.html</br>
 contentLoadingProgressBar</br>
 https://developer.android.com/reference/androidx/core/widget/ContentLoadingProgressBar</br>
 
+Status bar 색상 변경</br>
+https://origogi.github.io/android/dark-mode/</br>
+`<item name="android:windowLightStatusBar">true</item>`</br>
 
+?attr 속성</br>
+https://developer.android.com/reference/kotlin/android/R.attr</br>
+`android:layout_height="?attr/actionBarSize"`
