@@ -1,6 +1,6 @@
 # RandomNumberGenerator
 
-<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/2_RandomNumberGenerator.jpg" height="400"/>
+<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/basicApp/2_RandomNumberGenerator.jpg" height="400"/>
 
 ---
 1. <a href = "#content1">Shape Drawable</a></br>
