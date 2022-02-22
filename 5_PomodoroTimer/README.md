@@ -1,6 +1,6 @@
 # 5_PomodoroTimer
 
-<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/5_PomodoroTimer.png" height="400"/>
+<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/basicApp/5_PomodoroTimer.png" height="400"/>
 
 ---
 1. SeekBar</br>
