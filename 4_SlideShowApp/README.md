@@ -1,6 +1,6 @@
 # SlideShowApp
 
-<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/4_SlideShowApp.png" height="400"/>
+<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/basicApp/4_SlideShowApp.png" height="400"/>
 
 ---
 1. <a href = "#content1">screenOrientation</a></br>
