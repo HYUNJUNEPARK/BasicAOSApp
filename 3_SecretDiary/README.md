@@ -1,6 +1,6 @@
 # SecretDiary
 
-<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/3_SecretDiary.png" height="400"/>
+<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/basicApp/3_SecretDiary.png" height="400"/>
 
 ---
 1. <a href = "#content1">Font custom</a></br>
