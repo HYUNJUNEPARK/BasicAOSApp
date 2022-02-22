@@ -1,6 +1,6 @@
 # BMICalculator
 
-<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/1_BMICalculator.jpg" height="400"/>
+<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/basicApp/1_BMICalculator.jpg" height="400"/>
 
 ---
 1. Dialog</br>
