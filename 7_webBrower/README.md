@@ -1,6 +1,6 @@
 # WebBrowser
 
-<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/7_WebBrowser.png" height="400"/>
+<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/basicApp/7_WebBrowser.png" height="400"/>
 
 ---
 1. <a href = "#content1">webView</a></br>
