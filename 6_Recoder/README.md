@@ -1,6 +1,6 @@
 # 6_Recorder
 
-<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/6_Recoder.png" height="400"/>
+<img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/basicApp/6_Recoder.png" height="400"/>
 
 ---
 1. <a href = "#content1">CustomView</a></br>
