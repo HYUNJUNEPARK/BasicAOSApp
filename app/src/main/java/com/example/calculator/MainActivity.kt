@@ -8,6 +8,7 @@ import android.text.style.ForegroundColorSpan
 import android.view.View
 import android.widget.Toast
 import com.example.calculator.databinding.ActivityMainBinding
+import java.lang.NumberFormatException
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
@@ -55,8 +56,8 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this, "0은 제일 앞에 올 수 없습니다.", Toast.LENGTH_SHORT).show()
         }
         binding.expressionTextView.append(number)
+        binding.resultTextView.text = calculateExpression()
 
-        //TODO resultTextView 실시간으로 계산 결과를 넣어야하는 기능
 
     }
 
@@ -67,7 +68,8 @@ class MainActivity : AppCompatActivity() {
         when {
             isOperator -> {
               val text = binding.expressionTextView.text.toString()
-              binding.expressionTextView.text = text.dropLast(1) + operator  //droplast
+                //dropLast
+              binding.expressionTextView.text = text.dropLast(1) + operator
             }
             hasOperator -> {
                 Toast.makeText(this, "연산자는 한번만 사용할 수 있습니다", Toast.LENGTH_SHORT).show()
@@ -78,7 +80,7 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
-        //spannalbeStringBuilder
+        //SpannableStringBuilder
         val ssb = SpannableStringBuilder(binding.expressionTextView.text)
 
         ssb.setSpan(
@@ -104,7 +106,46 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun calculateExpression(): String {
+        val expressionTexts = binding.expressionTextView.text.split(" ")
+        if (hasOperator.not() || expressionTexts.size !=3) {
+            return ""
+        }
+        else if (expressionTexts[0].isNumber().not() || expressionTexts[2].isNumber().not()) {
+            return ""
+        }
+
+        val exp1 = expressionTexts[0].toBigInteger()
+        val exp2 = expressionTexts[2].toBigInteger()
+        val operator = expressionTexts[1]
+
+        return when (operator) {
+            "+" -> (exp1 + exp2).toString()
+            "-" -> (exp1 - exp2).toString()
+            "*" -> (exp1 * exp2).toString()
+            "/" -> (exp1 / exp2).toString()
+            "%" -> (exp1 % exp2).toString()
+            else -> ""
+        }
+    }
+
     fun historyButtonClicked(view: View) {
 
+    }
+}
+
+/*
+ 확장함수
+ 객체.확장하려고하는 함수
+ expressionTexts[0] 은 string 인데 isNumber 를 쓰지 못함
+ 함수를 확장해서 사용할 수 있도록함
+*/
+fun String.isNumber(): Boolean {
+    return try {
+        this.toBigInteger()
+        true
+    }
+    catch (e: NumberFormatException) {
+        false
     }
 }

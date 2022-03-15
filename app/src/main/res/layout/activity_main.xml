@@ -20,15 +20,16 @@
         android:id="@+id/expressionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="44dp"
         android:layout_marginStart="15dp"
+        tools:text="50 + 50"
+        android:layout_marginTop="44dp"
         android:layout_marginEnd="15dp"
         android:gravity="end"
         android:textColor="@color/black"
         android:textSize="30sp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/resultTextView"
@@ -40,9 +41,10 @@
         android:gravity="end"
         android:textColor="@color/lightGray"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/keypadTableLayout"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/keypadTableLayout" />
+        app:layout_constraintStart_toStartOf="parent"
+        tools:text="100" />
 
     <TableLayout
         android:id="@+id/keypadTableLayout"
@@ -264,6 +266,7 @@
         </TableRow>
 
         <TableRow android:layout_weight="1">
+
             <ImageButton
                 android:id="@+id/historyButton"
                 android:layout_width="wrap_content"
