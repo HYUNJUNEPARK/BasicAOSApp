@@ -85,6 +85,7 @@
                 android:textSize="24sp" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonModulo"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="7dp"
@@ -96,6 +97,7 @@
                 android:textSize="24sp" />
 
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/buttonDivider"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_margin="7dp"
