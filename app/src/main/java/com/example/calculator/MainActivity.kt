@@ -14,6 +14,9 @@ class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var isOperator = false
     private var hasOperator = false
+    companion object {
+        val TAG = "testLog"
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,17 +51,42 @@ class MainActivity : AppCompatActivity() {
         isOperator = false
 
         val expressionText = binding.expressionTextView.text.split(" ")
+
         if (expressionText.isNotEmpty() && expressionText.last().length >= 15) {
-            Toast.makeText(this, "15자리 까지만 사용할 수 있습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.limit_numbers_line), Toast.LENGTH_SHORT).show()
             return
         }
         else if(expressionText.last().isEmpty() && number == "0") {
-            Toast.makeText(this, "0은 제일 앞에 올 수 없습니다.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, getString(R.string.cannot_front_0), Toast.LENGTH_SHORT).show()
+            return
         }
-        binding.expressionTextView.append(number)
-        binding.resultTextView.text = calculateExpression()
+        else {
+            binding.expressionTextView.append(number)
+            binding.resultTextView.text = calculateResult()
+        }
+    }
 
+    private fun calculateResult(): String {
+        val expressionTexts = binding.expressionTextView.text.split(" ")
+        if (hasOperator.not() || expressionTexts.size !=3) {
+            return ""
+        }
+        //fun String.isNumber(): Boolean
+        else if (expressionTexts[0].isNumber().not() || expressionTexts[2].isNumber().not()) {
+            return ""
+        }
 
+        val exp1 = expressionTexts[0].toBigInteger()
+        val exp2 = expressionTexts[2].toBigInteger()
+
+        return when (expressionTexts[1]) {
+            "+" -> (exp1 + exp2).toString()
+            "-" -> (exp1 - exp2).toString()
+            "*" -> (exp1 * exp2).toString()
+            "/" -> (exp1 / exp2).toString()
+            "%" -> (exp1 % exp2).toString()
+            else -> ""
+        }
     }
 
     private fun operatorButtonClicked(operator: String) {
@@ -72,7 +100,7 @@ class MainActivity : AppCompatActivity() {
               binding.expressionTextView.text = text.dropLast(1) + operator
             }
             hasOperator -> {
-                Toast.makeText(this, "연산자는 한번만 사용할 수 있습니다", Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, getString(R.string.use_operator_only_one), Toast.LENGTH_SHORT).show()
                 return
             }
             else -> {
@@ -97,37 +125,45 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun clearButtonClicked(view: View) {
-
+        binding.expressionTextView.text = ""
+        binding.resultTextView.text = ""
+        isOperator = false
+        hasOperator = false
     }
-
 
 
     fun resultButtonClicked(view: View) {
-
-    }
-
-    private fun calculateExpression(): String {
         val expressionTexts = binding.expressionTextView.text.split(" ")
-        if (hasOperator.not() || expressionTexts.size !=3) {
-            return ""
-        }
-        else if (expressionTexts[0].isNumber().not() || expressionTexts[2].isNumber().not()) {
-            return ""
+
+        //expressionTexts.size == 1 숫자만 넣어서 예외처리를 띄울게 없는 상황
+        if (binding.expressionTextView.text.isEmpty() || expressionTexts.size == 1) {
+            return
         }
 
-        val exp1 = expressionTexts[0].toBigInteger()
-        val exp2 = expressionTexts[2].toBigInteger()
-        val operator = expressionTexts[1]
-
-        return when (operator) {
-            "+" -> (exp1 + exp2).toString()
-            "-" -> (exp1 - exp2).toString()
-            "*" -> (exp1 * exp2).toString()
-            "/" -> (exp1 / exp2).toString()
-            "%" -> (exp1 % exp2).toString()
-            else -> ""
+        //숫자와 연산자만 입력되고 마지막 숫자는 입력되지 않은 상황
+        if (expressionTexts.size != 3 && hasOperator) {
+            Toast.makeText(this, getString(R.string.make_formula), Toast.LENGTH_SHORT).show()
+            return
         }
+
+        //A + 11 이런 식으로 데이터를 숫자로 바꿀 수 업는 경우 expressionTexts[0] : A [1] : + [2] : 11
+        if (expressionTexts[0].isNumber().not() || expressionTexts[2].isNumber().not()) {
+            Toast.makeText(this, getString(R.string.error_message), Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        //DB에 저정 예정
+        val expressionText = binding.expressionTextView.text.toString()
+        val resultText = calculateResult()
+
+        binding.resultTextView.text = ""
+        binding.expressionTextView.text = resultText
+
+        isOperator = false
+        hasOperator = false
     }
+
+
 
     fun historyButtonClicked(view: View) {
 
