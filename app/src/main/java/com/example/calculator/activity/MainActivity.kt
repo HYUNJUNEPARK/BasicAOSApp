@@ -1,27 +1,40 @@
-package com.example.calculator
+package com.example.calculator.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.text.style.ForegroundColorSpan
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
+import androidx.core.view.isGone
+import androidx.core.view.isVisible
+import androidx.room.Room
+import com.example.calculator.R
 import com.example.calculator.databinding.ActivityMainBinding
+import com.example.calculator.db.AppDatabase
+import com.example.calculator.model.History
 import java.lang.NumberFormatException
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     private var isOperator = false
     private var hasOperator = false
-    companion object {
-        val TAG = "testLog"
-    }
 
+    lateinit var db: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+
+        db = Room.databaseBuilder(
+            applicationContext,
+            AppDatabase::class.java,
+            "historyDB"
+        ).build()
+
     }
 
     fun buttonClicked(view: View) {
@@ -134,7 +147,6 @@ class MainActivity : AppCompatActivity() {
 
     fun resultButtonClicked(view: View) {
         val expressionTexts = binding.expressionTextView.text.split(" ")
-
         //expressionTexts.size == 1 숫자만 넣어서 예외처리를 띄울게 없는 상황
         if (binding.expressionTextView.text.isEmpty() || expressionTexts.size == 1) {
             return
@@ -152,9 +164,14 @@ class MainActivity : AppCompatActivity() {
             return
         }
 
-        //DB에 저정 예정
+        //DB에 저장 예정
         val expressionText = binding.expressionTextView.text.toString()
         val resultText = calculateResult()
+
+        //TODO 디비에넣어주는 부분 -> 저장관련 코드는 메인스레드가 아닌 서브스레드에서 진행
+        Thread(Runnable {
+            db.historyDao().insetHistory(History(null, expressionText, resultText))
+        }).start()
 
         binding.resultTextView.text = ""
         binding.expressionTextView.text = resultText
@@ -163,9 +180,38 @@ class MainActivity : AppCompatActivity() {
         hasOperator = false
     }
 
+    fun closeHistoryButtonClicked(view: View) {
+        binding.historyLayout.isVisible = false
+    }
 
 
     fun historyButtonClicked(view: View) {
+        binding.historyLayout.isVisible = true
+        binding.historyLinearLayout.removeAllViews()
+
+        //DB 모든 기록 가져오기
+        //뷰에  모든 기록 할당하기
+        Thread(Runnable {
+            //reversed 함수롤 통해 최신 데이터가 가장 위에 올라옴
+            db.historyDao().getAll().reversed().forEach {
+                runOnUiThread {
+                    val historyView = LayoutInflater.from(this).inflate(R.layout.history_row, null, false)
+                    historyView.findViewById<TextView>(R.id.expressionTextView).text = it.expression
+                    historyView.findViewById<TextView>(R.id.resultTextView).text = "= ${it.result}"
+                    binding.historyLinearLayout.addView(historyView)
+                }
+            }
+        }).start()
+    }
+
+    fun historyClearButtonClicked(view: View) {
+        //DB 모든기록 삭제
+        //뷰에서 모든 기록 삭제
+        binding.historyLinearLayout.removeAllViews()
+
+        Thread(Runnable {
+            db.historyDao().deleteAll()
+        }).start()
 
     }
 }
