@@ -1,4 +1,4 @@
-# 프로젝트 이름
+# Calculator
 
 <img src="https://github.com/HYUNJUNEPARK/ImageRepository/blob/master/basicApp/8_Calculator.png" height="400"/>
 
