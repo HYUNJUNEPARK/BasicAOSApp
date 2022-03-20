@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/expressionTextView"
+        android:id="@+id/historyExpressionTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -21,7 +21,7 @@
         tools:text="9999" />
 
     <TextView
-        android:id="@+id/resultTextView"
+        android:id="@+id/historyResultTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
@@ -33,7 +33,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/expressionTextView"
+        app:layout_constraintTop_toBottomOf="@id/historyExpressionTextView"
         tools:text="9999"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

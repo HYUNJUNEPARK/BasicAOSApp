@@ -109,7 +109,6 @@
                 android:text="÷"
                 android:textColor="@color/green"
                 android:textSize="24sp" />
-
         </TableRow>
 
         <TableRow android:layout_weight="1">
@@ -318,7 +317,7 @@
     </TableLayout>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/historyLayout"
+        android:id="@+id/mainHistoryLayout"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:background="@color/white"
@@ -352,7 +351,7 @@
             app:layout_constraintTop_toBottomOf="@id/closeButton">
 
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/historyLinearLayout"
+                android:id="@+id/mainHistoryLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical" />
