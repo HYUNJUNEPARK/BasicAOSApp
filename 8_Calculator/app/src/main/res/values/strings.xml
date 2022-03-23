@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Calculator</string>
+    <string name="limit_numbers_line">15자리 까지만 사용할 수 있습니다.</string>
+    <string name="cannot_front_0">0은 제일 앞에 올 수 없습니다.</string>
+    <string name="use_operator_only_one">연산자는 한번만 사용할 수 있습니다</string>
+    <string name="make_formula">아직 완성되지 않은 수식입니다.</string>
+    <string name="error_message">오류가 발생했습니다.</string>
+    <string name="db_name">historyDB</string>
+</resources>
