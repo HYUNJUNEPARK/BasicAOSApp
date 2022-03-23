@@ -21,6 +21,9 @@ CustomView / MediaPlayer&MediaRecoder / State Variable / Scoped Storage / Custom
 <br></br>
 **7_WebBrowser**</br>
 webView / swipeRefreshLayout / contentLoadingProgressBar</br>
+<br></br>
+**8_Calculator**</br>
+ROOM / SpannableStringBuilder / Extension Function / Ripple effect / TableLayout</br>
 
 ---
 
