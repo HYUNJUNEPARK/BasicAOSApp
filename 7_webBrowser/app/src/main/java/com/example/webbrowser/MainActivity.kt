@@ -1,18 +1,15 @@
 package com.example.webbrowser
 
-import android.graphics.Bitmap
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.webkit.URLUtil
-import android.webkit.WebView
 import androidx.appcompat.app.AppCompatActivity
 import com.example.webbrowser.databinding.ActivityMainBinding
+import com.example.webbrowser.webview.Constants.Companion.DEFAULT_URL
+import com.example.webbrowser.webview.WebView
 
 class MainActivity : AppCompatActivity() {
     private val binding by lazy {ActivityMainBinding.inflate(layoutInflater)}
-    companion object {
-        private const val DEFAULT_URL = "https://www.google.com"
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         bindViews()
     }
 
-    override fun onBackPressed() { //액티비티에서 백버튼을 눌럿을 때
+    override fun onBackPressed() {
         if (binding.webView.canGoBack()){
             binding.webView.goBack()
         }
@@ -33,55 +30,32 @@ class MainActivity : AppCompatActivity() {
 
     private fun initWebView() {
         binding.webView.apply {
-            webViewClient = WebViewClient()
-            webChromeClient = WebChromeClient()
+            val webView = WebView(binding)
+            webViewClient = webView.WebViewClient()
+            webChromeClient = webView.WebChromeClient()
             settings.javaScriptEnabled = true
             loadUrl(DEFAULT_URL)
         }
     }
 
-    inner class WebViewClient: android.webkit.WebViewClient() {
-        override fun onPageStarted(view: WebView?, url: String?, favicon: Bitmap?) {
-            super.onPageStarted(view, url, favicon)
-
-            binding.progressBar.show()
-        }
-
-        override fun onPageFinished(view: WebView?, /*redirecting url*/url: String?) {
-            super.onPageFinished(view, url)
-
-            binding.refreshLayout.isRefreshing = false
-            binding.progressBar.hide()
-            binding.goBackButton.isEnabled = binding.webView.canGoBack()
-            binding.goForwardButton.isEnabled = binding.webView.canGoForward()
-            binding.addressBar.setText(url)
-        }
-    }
-
-    inner class WebChromeClient() : android.webkit.WebChromeClient() {
-        override fun onProgressChanged(view: WebView?, newProgress: Int/*0 - 100*/) {
-            super.onProgressChanged(view, newProgress)
-
-            binding.progressBar.progress = newProgress
-        }
-    }
-
     private fun bindViews(){
-        binding.addressBar.setOnEditorActionListener { textView, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_DONE) {
-                val loadingUrl = textView.text.toString()
-                if (URLUtil.isNetworkUrl(loadingUrl)) { //true if the url is a network url
-                    binding.webView.loadUrl(loadingUrl)
+        binding.apply {
+            addressBar.setOnEditorActionListener { textView, actionId, _ ->
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    val loadingUrl = textView.text.toString()
+                    if (URLUtil.isNetworkUrl(loadingUrl)) { //true if the url is a network url
+                        binding.webView.loadUrl(loadingUrl)
+                    }
+                    else {
+                        binding.webView.loadUrl("http://$loadingUrl")
+                    }
                 }
-                else {
-                    binding.webView.loadUrl("http://$loadingUrl")
-                }
+                return@setOnEditorActionListener false
             }
-            return@setOnEditorActionListener false
+            goBackButton.setOnClickListener { binding.webView.goBack() }
+            goForwardButton.setOnClickListener { binding.webView.goForward() }
+            goHomeButton.setOnClickListener { binding.webView.loadUrl(DEFAULT_URL) }
+            refreshLayout.setOnRefreshListener { binding.webView.reload() }
         }
-        binding.goBackButton.setOnClickListener { binding.webView.goBack() }
-        binding.goForwardButton.setOnClickListener { binding.webView.goForward() }
-        binding.goHomeButton.setOnClickListener { binding.webView.loadUrl(DEFAULT_URL) }
-        binding.refreshLayout.setOnRefreshListener { binding.webView.reload() }
     }
 }
