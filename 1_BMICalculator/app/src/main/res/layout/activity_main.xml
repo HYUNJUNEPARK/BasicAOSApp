@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="mainActivity"
             type="com.june.androidApp.bmicalculator.MainActivity" />
@@ -59,8 +58,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:backgroundTint="@color/mainColor"
             android:onClick="initButton"
+            android:backgroundTint="@color/mainColor"
             android:text="@string/result" />
 
         <ImageView

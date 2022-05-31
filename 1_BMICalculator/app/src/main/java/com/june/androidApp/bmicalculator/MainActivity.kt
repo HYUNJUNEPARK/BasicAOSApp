@@ -1,6 +1,7 @@
 package com.june.androidApp.bmicalculator
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -16,18 +17,20 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        setContentView(binding.root)
     }
 
     fun initButton(v: View) {
-        val height = binding.heightEditText.text.toString()
-        val weight = binding.weightEditText.text.toString()
+        Log.d("testLog", "initButton: tttt")
+        val height = binding.heightEditText.text
+        val weight = binding.weightEditText.text
 
         if (height.isEmpty() || weight.isEmpty()) {
+            Log.d("testLog", "Height : $height // Weight $weight")
             Toast.makeText(this, R.string.toast, Toast.LENGTH_SHORT).show()
             return
         } else {
-            bmiCalculator(height.toInt(), weight.toInt())
+            bmiCalculator(height.toString().toInt(), weight.toString().toInt())
         }
     }
 
@@ -42,7 +45,9 @@ class MainActivity : AppCompatActivity() {
             else -> getString(R.string.underweight)
         }
         val bmiValue: String = bmiRound.toString()
+
         ResultDialog(this).resultDialog(bmiValue, bmiResultText)
+
 
         binding.heightEditText.setText(getString(R.string.initialization))
         binding.weightEditText.setText(getString(R.string.initialization))

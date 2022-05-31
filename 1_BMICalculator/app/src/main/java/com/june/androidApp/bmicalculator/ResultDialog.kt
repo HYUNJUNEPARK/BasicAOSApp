@@ -1,29 +1,29 @@
 package com.june.androidApp.bmicalculator
 
-import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
 import android.graphics.Color
 import android.view.LayoutInflater
-import android.widget.Button
 import android.widget.TextView
+import androidx.databinding.DataBindingUtil
+import com.june.androidApp.bmicalculator.databinding.CustomDialogBinding
 
-class ResultDialog(private val context: Context) {
+class ResultDialog(private val context: Context){
+    private val binding = DataBindingUtil.inflate<CustomDialogBinding>(
+        LayoutInflater.from(context), R.layout.custom_dialog,null,false
+    )
+    private val dialog = Dialog(context)
+
     fun resultDialog(bmi: String, bmiResultText: String) {
-        val mDialogView = LayoutInflater.from(context).inflate(R.layout.custom_dialog, null)
-        val mDialogBuilder = AlertDialog.Builder(context).setView(mDialogView)
+        binding.tvBmiValue.text = bmi
+        binding.tvBmiResult.text = bmiResultText
+        setBmiTextColor(bmiResultText, binding.tvBmiResult)
 
-        val bmiValueTextView = mDialogView.findViewById<TextView>(R.id.tv_bmi_value)
-        val bmiResultTextView = mDialogView.findViewById<TextView>(R.id.tv_bmi_result)
-        val closeBtn = mDialogView.findViewById<Button>(R.id.btn_close)
+        dialog.setContentView(binding.root)
+        dialog.show()
 
-        bmiValueTextView.text = bmi //bmi 수치
-        setBmiTextColor(bmiResultText, bmiResultTextView)
-        bmiResultTextView.text = bmiResultText //bmi 결과 값
-
-        val mAlertDialog = mDialogBuilder.show()
-
-        closeBtn.setOnClickListener {
-            mAlertDialog.dismiss()
+        binding.btnClose.setOnClickListener {
+            dialog.dismiss()
         }
     }
 
